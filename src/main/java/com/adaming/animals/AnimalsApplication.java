@@ -1,9 +1,10 @@
 package com.adaming.animals;
 
+
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.service.AnimalsService;
-import com.adaming.animals.service.AnimalsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.adaming.animals.entity.Organs;
+import com.adaming.animals.service.OrgansService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,7 @@ public class AnimalsApplication{
     }
 
     @Bean
-    public CommandLineRunner demo(AnimalsService animalsService){
+    public CommandLineRunner demoAnimal(AnimalsService animalsService){
         return(args)->{
             Animals animals=new Animals();
             animals.setName("dog");
@@ -26,4 +27,13 @@ public class AnimalsApplication{
             animalsService.createAnimal(animals);
         };
     }
+
+    @Bean
+    public CommandLineRunner demoOrgan (OrgansService organsService){
+        return (args) -> {
+            organsService.saveOrgan(new Organs("oreille","organe necessaire pour écouter",false));
+
+        };
+    }
+
 }
