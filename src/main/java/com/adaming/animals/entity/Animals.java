@@ -13,11 +13,12 @@ public class Animals implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String primary_group;
+    private String category;
     private String environment;
     private String imageUrl;
 
     public Animals(){}
+
     public Long getId() {
         return id;
     }
@@ -28,14 +29,6 @@ public class Animals implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPrimary_group() {
-        return primary_group;
-    }
-
-    public void setPrimary_group(String primary_group) {
-        this.primary_group = primary_group;
     }
 
     public String getEnvironment() {
@@ -52,5 +45,13 @@ public class Animals implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
