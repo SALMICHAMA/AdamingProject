@@ -17,7 +17,8 @@ public class Animals implements Serializable {
     private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable (name = "animals_organs", joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
+    @JoinTable (name = "animals_organs",
+            joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "organs_id",referencedColumnName = "id"))
     private List<Organs> organsList;
 
@@ -28,7 +29,12 @@ public class Animals implements Serializable {
         this.category=category;
         this.environment=environment;
     }
-
+    public Animals(String name,String category,String environment,List<Organs> organsList){
+        this.name=name;
+        this.category=category;
+        this.environment=environment;
+        this.organsList=organsList;
+    }
     public Long getId() {
         return id;
     }

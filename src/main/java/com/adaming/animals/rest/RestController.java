@@ -1,5 +1,6 @@
 package com.adaming.animals.rest;
 
+import com.adaming.animals.dto.CreateAnimalDto;
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.service.AnimalsServiceImpl;
@@ -48,7 +49,16 @@ public class RestController {
         return list;
     }
     @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Animals addAnimalSubmit(@RequestBody Animals animals) {
+    public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
+        List<Organs> organs=createAnimalDto.getOrgansList();
+        for(int i=0;i<organs.size();i++){
+            Organs organToTest=organsService.showSpecificOrgan(organs.get(i).getName());
+            if(organToTest==null){
+                organsService.addOrgan(organs.get(i).getName(), organs.get(i).getDescription(),organs.get(i).isVital());
+            }
+        }
+        Animals animals=createAnimalDto.toAnimals();
+        animals.setOrgansList(organs);
         animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment());
         return animals;
     }

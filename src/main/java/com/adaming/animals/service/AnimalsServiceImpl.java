@@ -1,6 +1,7 @@
 package com.adaming.animals.service;
 
 import com.adaming.animals.entity.Animals;
+import com.adaming.animals.entity.Organs;
 import com.adaming.animals.repository.AnimalsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,12 @@ public class AnimalsServiceImpl implements AnimalsService {
     @Override
     public void createAnimal(String name,String category,String environment) {
         Animals animal=new Animals(name,category,environment);
+        animalsRepository.save(animal);
+    }
+
+    @Override
+    public void createAnimal(String name, String category, String environment, List<Organs> organsList) {
+        Animals animal=new Animals(name,category,environment,organsList);
         animalsRepository.save(animal);
     }
 
