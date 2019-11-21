@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.web.bind.annotation.RestController
-
 @RequestMapping("/api")
 public class RestController {
 
@@ -27,6 +26,7 @@ public class RestController {
         Animals animals = animalsService.findById(idToShow);
         return animals;
     }
+    
 
     @GetMapping("/organ")
     public Organs nameOrgan(@RequestParam(name = "name", required = false)  String name, Model model) {
