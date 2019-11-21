@@ -27,10 +27,11 @@ public class OrgansServiceImpl implements OrgansService{
 
 
     @Override
-    public void deleteOrgan(String name) {
+    public Organs deleteOrgan(String name) {
         Organs organs =organsRepository.getOrganByName(name);
         organsRepository.delete(organs);
 
+        return organs;
     }
 
     @Override

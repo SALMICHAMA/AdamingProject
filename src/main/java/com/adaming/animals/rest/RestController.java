@@ -55,7 +55,7 @@ public class RestController {
         return organ;
     }
 
-    @PostMapping("/organs/add")
+    @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organs addOrganSubmit(@RequestBody Organs organ) {
         organsService.addOrgan(organ.getName(), organ.getDescription(),organ.isVital());
              return organ;
@@ -69,6 +69,12 @@ public class RestController {
         return organList;
     }
 
+    @GetMapping ("/organ/delete/{name}")
+    public List<Organs> deleteOrgan(@PathVariable (name="name") String organName){
+        Organs organ = organsService.deleteOrgan(organName);
+        List<Organs> organsList = organsService.showAllOrgans();
+        return organsList ;
+    }
 
 
 
