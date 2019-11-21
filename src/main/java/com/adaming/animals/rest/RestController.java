@@ -10,7 +10,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,25 @@ public class RestController {
         Animals animals = animalsService.findById(idToShow);
         return animals;
     }
-    
+
+    @GetMapping("/animals")
+    public List<Animals> displayAllAnimals(Model model){
+        List<Animals> list=animalsService.showAllAnimals();
+        model.addAttribute("animalList",list);
+        return list;
+    }
+    @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Animals addAnimalSubmit(@RequestBody Animals animals) {
+        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment());
+        return animals;
+    }
+
+    @PostMapping(path = "animal/delete/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Animals> deleteAnimal(@PathVariable(name = "name") String animalName){
+        animalsService.deleteAnimalByName(animalName);
+        List<Animals> animalsList=animalsService.showAllAnimals();
+        return animalsList;
+    }
 
     @GetMapping("/organ")
     public Organs nameOrgan(@RequestParam(name = "name", required = false)  String name, Model model) {
@@ -55,11 +72,10 @@ public class RestController {
         return organ;
     }
 
-    @PostMapping("/organs/add")
+    @PostMapping(path = "/organs/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organs addOrganSubmit(@RequestBody Organs organ) {
         organsService.addOrgan(organ.getName(), organ.getDescription(),organ.isVital());
              return organ;
-
         }
 
     @GetMapping("/organs")

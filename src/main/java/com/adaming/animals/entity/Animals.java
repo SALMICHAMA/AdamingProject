@@ -23,6 +23,12 @@ public class Animals implements Serializable {
 
     public Animals(){}
 
+    public Animals(String name,String category,String environment){
+        this.name=name;
+        this.category=category;
+        this.environment=environment;
+    }
+
     public Long getId() {
         return id;
     }

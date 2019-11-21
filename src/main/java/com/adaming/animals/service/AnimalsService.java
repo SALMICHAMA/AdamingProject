@@ -7,7 +7,7 @@ import java.util.List;
 public interface AnimalsService {
 
 
-    void createAnimal(Animals animal);
+    void createAnimal(String name,String category,String environment);
     void deleteAnimalByName(String name);
     List<Animals> showAllAnimals();
     //List<Animals> showAnimalsByAnimalGroup(String animal_group);

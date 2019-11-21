@@ -13,7 +13,8 @@ public class AnimalsServiceImpl implements AnimalsService {
     AnimalsRepository animalsRepository;
 
     @Override
-    public void createAnimal(Animals animal) {
+    public void createAnimal(String name,String category,String environment) {
+        Animals animal=new Animals(name,category,environment);
         animalsRepository.save(animal);
     }
 
