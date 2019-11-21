@@ -7,10 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AnimalsRepository extends CrudRepository<Animals, Long> {
 
+    Animals getAnimalsByName(String name);
 
-//    void getAnimalsByName(String name);
-
-//    void deleteAnimal(Animals animals);
-
-//    void getAnimalByGroup(String group);
 }

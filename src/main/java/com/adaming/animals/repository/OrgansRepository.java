@@ -1,15 +1,13 @@
 package com.adaming.animals.repository;
 
-import java.util.List;
 
-public interface OrgansRepository<Organs> {
+import com.adaming.animals.entity.Organs;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-//    void saveNewOrgan(Organs organs);
-//
-//    void findOrganByName(String organName);
-//
-//    void deleteOrgan(Organs organs);
-//
-//    List<Organs> getAllOrgans(Organs organs);
 
+@Repository
+public interface OrgansRepository extends CrudRepository<Organs,Long> {
+
+    Organs getOrganByName(String organName);
 }
