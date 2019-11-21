@@ -1,12 +1,10 @@
 package com.adaming.animals.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name="organs")
 public class Organs implements Serializable {
 
     @Id

@@ -1,12 +1,11 @@
 package com.adaming.animals.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
+@Table(name="animals")
 public class Animals implements Serializable {
 
     @Id
@@ -16,6 +15,11 @@ public class Animals implements Serializable {
     private String category;
     private String environment;
     private String imageUrl;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name = "animals_organs", joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "organs_id",referencedColumnName = "id"))
+    private List<Organs> organsList;
 
     public Animals(){}
 
@@ -53,5 +57,13 @@ public class Animals implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public List<Organs> getOrgansList() {
+        return organsList;
+    }
+
+    public void setOrgansList(List<Organs> organsList) {
+        this.organsList = organsList;
     }
 }
