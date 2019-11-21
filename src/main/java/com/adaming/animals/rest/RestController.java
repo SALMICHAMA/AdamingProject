@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.web.bind.annotation.RestController
-
 @RequestMapping("/api")
 public class RestController {
 
@@ -23,5 +22,6 @@ public class RestController {
         Animals animals = animalsService.findById(idToShow);
         return animals;
     }
+    
 
 }
