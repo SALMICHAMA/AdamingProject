@@ -20,12 +20,8 @@ public class OrgansServiceImpl implements OrgansService{
 
 
     @Override
-    public void addOrgan(String organName, String organDescription) {
-        Organs organ = new Organs();
-        organ.setName(organName);
-        organ.setDescription(organDescription);
-        organ.setVital(false);
-
+    public void addOrgan(String organName, String organDescription,boolean isVital) {
+        Organs organ = new Organs(organName, organDescription, isVital);
         organsRepository.save(organ);
     }
 

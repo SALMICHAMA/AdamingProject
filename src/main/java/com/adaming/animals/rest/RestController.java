@@ -7,10 +7,9 @@ import com.adaming.animals.service.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
@@ -39,6 +38,22 @@ public class RestController {
         }
         return organ;
     }
+
+    @PostMapping("/organs/add")
+    public Organs addOrganSubmit(@RequestBody Organs organ) {
+        organsService.addOrgan(organ.getName(), organ.getDescription(),organ.isVital());
+             return organ;
+
+        }
+
+    @GetMapping("/organs")
+    public List<Organs> displayAllOrgans(Model model) {
+        List<Organs> organList = organsService.showAllOrgans();
+        model.addAttribute("organList", organList);
+        return organList;
+    }
+
+
 
 
 

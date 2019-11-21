@@ -33,7 +33,12 @@ public class AnimalsApplication implements CommandLineRunner{
         animals.setCategory("mammal");
         animalsService.createAnimal(animals);
 
-        organsService.saveOrgan(new Organs("oreille","organe necessaire pour écouter",false));
+        Organs organ = new Organs();
+        organ.setName("lung");
+        organ.setDescription("organe necessaire pour respirer");
+        organ.setVital(true);
+        organsService.saveOrgan(organ);
+
     }
 
 }

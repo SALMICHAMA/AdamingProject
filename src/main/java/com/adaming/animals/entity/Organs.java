@@ -17,6 +17,12 @@ public class Organs implements Serializable {
     public Organs() {
     }
 
+    public Organs(String name, String description) {
+        this.name = name;
+        this.description = description;
+
+    }
+
     public Organs(String name, String description, boolean isVital) {
         this.name = name;
         this.description = description;
