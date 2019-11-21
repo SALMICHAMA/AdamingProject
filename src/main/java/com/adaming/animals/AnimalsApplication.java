@@ -2,16 +2,13 @@ package com.adaming.animals;
 
 
 import com.adaming.animals.entity.Animals;
-import com.adaming.animals.service.AnimalsService;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.service.AnimalsServiceImpl;
-import com.adaming.animals.service.OrgansService;
 import com.adaming.animals.service.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AnimalsApplication implements CommandLineRunner{
