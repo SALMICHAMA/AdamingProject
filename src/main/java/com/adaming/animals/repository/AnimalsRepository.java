@@ -12,6 +12,7 @@ public interface AnimalsRepository extends CrudRepository<Animals, Long> {
     Animals getAnimalsByName(String name);
    // Iterable<Animals> getAnimalsByAnimal_group(String animal_group);
     void deleteAnimalsById(Long id);
+    Animals getAnimalsById(Long id);
 
 
 }

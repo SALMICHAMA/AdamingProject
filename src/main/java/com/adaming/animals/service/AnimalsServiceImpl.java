@@ -43,4 +43,10 @@ public class AnimalsServiceImpl implements AnimalsService {
         Animals animal=animalsRepository.getAnimalsByName(name);
         return animal;
     }
+
+    @Override
+    public Animals findById(Long id) {
+        Animals animals=animalsRepository.getAnimalsById(id);
+        return animals;
+    }
 }

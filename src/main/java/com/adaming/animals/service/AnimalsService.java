@@ -12,5 +12,6 @@ public interface AnimalsService {
     List<Animals> showAllAnimals();
     //List<Animals> showAnimalsByAnimalGroup(String animal_group);
     Animals showSpecificAnimal(String name);
+    Animals findById(Long id);
 
 }
