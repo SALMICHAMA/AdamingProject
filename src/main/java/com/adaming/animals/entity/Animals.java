@@ -1,11 +1,13 @@
 package com.adaming.animals.entity;
 
+import com.adaming.animals.dto.AnimalDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="animals")
+@Table(name = "animals")
 public class Animals implements Serializable {
 
     @Id
@@ -17,33 +19,41 @@ public class Animals implements Serializable {
     private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable (name = "animals_organs",
+    @JoinTable(name = "animals_organs",
             joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "organs_id",referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "organs_id", referencedColumnName = "id"))
     private List<Organs> organs;
 
-    public Animals(){}
+    public Animals() {
+    }
 
-    public Animals(String name,String category,String environment){
-        this.name=name;
-        this.category=category;
-        this.environment=environment;
+    public Animals(String name, String category, String environment) {
+        this.name = name;
+        this.category = category;
+        this.environment = environment;
     }
-    public Animals(String name,String category,String environment, List<Organs> organs){
-        this.name=name;
-        this.category=category;
-        this.environment=environment;
-        this.organs=organs;
+
+    public Animals(String name, String category, String environment, List<Organs> organs) {
+        this.name = name;
+        this.category = category;
+        this.environment = environment;
+        this.organs = organs;
     }
-    public Animals(String name,String category,String environment,String imageUrl, List<Organs> organs){
-        this.name=name;
-        this.category=category;
-        this.environment=environment;
-        this.organs=organs;
-        this.imageUrl=imageUrl;
+
+    public Animals(String name, String category, String environment, String imageUrl, List<Organs> organs) {
+        this.name = name;
+        this.category = category;
+        this.environment = environment;
+        this.organs = organs;
+        this.imageUrl = imageUrl;
     }
+
     public Long getId() {
         return id;
+    }
+
+    public AnimalDto toAnimalsDto() {
+        return new AnimalDto(this.id, this.name, this.category, this.environment, this.organs, this.imageUrl);
     }
 
     public String getName() {

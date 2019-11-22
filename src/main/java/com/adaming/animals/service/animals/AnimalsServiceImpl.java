@@ -15,16 +15,17 @@ public class AnimalsServiceImpl implements AnimalsService {
     AnimalsRepository animalsRepository;
     @Autowired
     OrgansServiceImpl organsService;
+
     @Override
-    public void createAnimal(String name,String category,String environment) {
-        Animals animal=new Animals(name,category,environment);
+    public void createAnimal(String name, String category, String environment) {
+        Animals animal = new Animals(name, category, environment);
         animalsRepository.save(animal);
     }
 
     @Override
     public void createAnimal(String name, String category, String environment, List<Organs> organsList) {
-        Animals animal=new Animals(name,category,environment,organsList);
-        if(organsList==null){
+        Animals animal = new Animals(name, category, environment, organsList);
+        if (organsList == null) {
             animalsRepository.save(animal);
         } else {
             for (int i = 0; i < organsList.size(); i++) {
@@ -35,7 +36,7 @@ public class AnimalsServiceImpl implements AnimalsService {
                     organsService.saveOrgan(organsList.get(i));
                 }
             }
-            animal=new Animals(name,category,environment,organsList);
+            animal = new Animals(name, category, environment, organsList);
             animalsRepository.save(animal);
         }
 
@@ -43,10 +44,10 @@ public class AnimalsServiceImpl implements AnimalsService {
     }
 
     @Override
-    public void createAnimal(String name, String category, String environment, String imageUrl, List<Organs> organsList) {
-        Animals animal=new Animals(name,category,environment,imageUrl,organsList);
-        if(organsList==null){
-            animalsRepository.save(animal);
+    public Animals createAnimal(String name, String category, String environment, String imageUrl, List<Organs> organsList) {
+        Animals animal = new Animals(name, category, environment, imageUrl, organsList);
+        if (organsList == null) {
+            return animalsRepository.save(animal);
         } else {
             for (int i = 0; i < organsList.size(); i++) {
                 Organs organToTest = organsService.showSpecificOrgan(organsList.get(i).getName());
@@ -56,22 +57,22 @@ public class AnimalsServiceImpl implements AnimalsService {
                     organsService.saveOrgan(organsList.get(i));
                 }
             }
-            animal=new Animals(name,category,environment,imageUrl,organsList);
-            animalsRepository.save(animal);
+            animal = new Animals(name, category, environment, imageUrl, organsList);
+            return animalsRepository.save(animal);
         }
     }
 
     @Override
     public void deleteAnimalByName(String name) {
-    Animals animals=animalsRepository.getAnimalsByName(name);
-    Long idToDelete=animals.getId();
-    animalsRepository.deleteAnimalsById(idToDelete);
+        Animals animals = animalsRepository.getAnimalsByName(name);
+        Long idToDelete = animals.getId();
+        animalsRepository.deleteAnimalsById(idToDelete);
     }
 
     @Override
     public List<Animals> showAllAnimals() {
-        List<Animals> list=null;
-        list=(List<Animals>) animalsRepository.findAll();
+        List<Animals> list = null;
+        list = (List<Animals>) animalsRepository.findAll();
         return list;
     }
 
@@ -80,17 +81,17 @@ public class AnimalsServiceImpl implements AnimalsService {
     //    List<Animals> list=null;
     //    list=(List<Animals>) animalsRepository.getAnimalsByAnimal_group(animal_group);
     //    return list;
-   // }
+    // }
 
     @Override
     public Animals showSpecificAnimal(String name) {
-        Animals animal=animalsRepository.getAnimalsByName(name);
+        Animals animal = animalsRepository.getAnimalsByName(name);
         return animal;
     }
 
     @Override
     public Animals findById(Long id) {
-        Animals animals=animalsRepository.getAnimalsById(id);
+        Animals animals = animalsRepository.getAnimalsById(id);
         return animals;
     }
 }

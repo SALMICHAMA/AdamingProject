@@ -1,11 +1,12 @@
 package com.adaming.animals.rest;
 
+import com.adaming.animals.dto.AnimalDto;
 import com.adaming.animals.dto.CreateAnimalDto;
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.service.animals.AnimalsServiceImpl;
-import com.adaming.animals.service.storage.ImageServiceImpl;
 import com.adaming.animals.service.organs.OrgansServiceImpl;
+import com.adaming.animals.service.storage.ImageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 
 @org.springframework.web.bind.annotation.RestController
@@ -32,41 +31,41 @@ public class RestController {
     ImageServiceImpl imageServiceImpl;
 
     /**
-     *
      * @param idToShow is the id of the animal that you want to display
      * @return the animal's characteristics
      */
     @GetMapping(path = "animals/{id}")
     public Animals animals_id(@PathVariable(name = "id") long idToShow) {
         Animals animals = animalsService.findById(idToShow);
-        MultipartFile file=(MultipartFile) imageServiceImpl.loadAsResource(animals.getImageUrl());
+        MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animals.getImageUrl());
         return animals;
     }
 
     @GetMapping("/animals")
-    public List<Animals> displayAllAnimals(Model model){
-        List<Animals> list=animalsService.showAllAnimals();
-        model.addAttribute("animalList",list);
+    public List<Animals> displayAllAnimals(Model model) {
+        List<Animals> list = animalsService.showAllAnimals();
+        model.addAttribute("animalList", list);
         return list;
     }
-    @PostMapping(path = "/animal/add",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public CreateAnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
+
+    @PostMapping(path = "/animal/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public AnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
         imageServiceImpl.storeAvatar(createAnimalDto.getFile());
-        createAnimalDto.setImageUrl("/uploads/"+createAnimalDto.getFile().getOriginalFilename());
-        Animals animals=createAnimalDto.toAnimals();
-        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment(),animals.getImageUrl(),animals.getOrgans());
-        return createAnimalDto;
+        createAnimalDto.setImageUrl("/uploads/" + createAnimalDto.getFile().getOriginalFilename());
+
+        Animals animals = animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrgansList());
+        return animals.toAnimalsDto();
     }
 
-    @PostMapping(path = "animals/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Animals> deleteAnimal(@PathVariable(name = "name") String animalName){
+    @PostMapping(path = "animals/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Animals> deleteAnimal(@PathVariable(name = "name") String animalName) {
         animalsService.deleteAnimalByName(animalName);
-        List<Animals> animalsList=animalsService.showAllAnimals();
+        List<Animals> animalsList = animalsService.showAllAnimals();
         return animalsList;
     }
 
     @GetMapping("/organ")
-    public Organs nameOrgan(@RequestParam(name = "name", required = false)  String name, Model model) {
+    public Organs nameOrgan(@RequestParam(name = "name", required = false) String name, Model model) {
         Organs organ = organsService.showSpecificOrgan(name);
 
         if (organ == null) {
@@ -78,11 +77,11 @@ public class RestController {
     }
 
 
-    @PostMapping(path = "/organs/add",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organs addOrganSubmit(@RequestBody Organs organ) {
-        organsService.addOrgan(organ.getName(), organ.getDescription(),organ.isVital());
+        organsService.addOrgan(organ.getName(), organ.getDescription(), organ.isVital());
         return organ;
-        }
+    }
 
     @GetMapping("/organs")
     public List<Organs> displayAllOrgans(Model model) {
@@ -91,17 +90,16 @@ public class RestController {
         return organList;
     }
 
-    @PostMapping (path = "/organs/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Organs> deleteOrgan(@PathVariable (name="name") String organName){
+    @PostMapping(path = "/organs/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Organs> deleteOrgan(@PathVariable(name = "name") String organName) {
         Organs organ = organsService.deleteOrgan(organName);
         List<Organs> organsList = organsService.showAllOrgans();
-        return organsList ;
+        return organsList;
     }
 
 
-
     @PostMapping("/uploads")
-    public MultipartFile handleFileUpload(@RequestBody MultipartFile file){
+    public MultipartFile handleFileUpload(@RequestBody MultipartFile file) {
 
         if (file == null) {
             System.out.println("File not found");
@@ -119,11 +117,11 @@ public class RestController {
 
     @GetMapping("/uploads/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename){
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         Resource file = imageServiceImpl.loadAsResource(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\""+ file.getFilename()+"\"")
+                        "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
 
