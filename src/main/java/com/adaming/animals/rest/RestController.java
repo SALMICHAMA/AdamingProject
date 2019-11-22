@@ -50,10 +50,12 @@ public class RestController {
         model.addAttribute("animalList",list);
         return list;
     }
-    @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/animal/add",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
     public CreateAnimalDto addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
+        imageService.storeAvatar(createAnimalDto.getFile());
+        createAnimalDto.setImageUrl("/uploads/"+createAnimalDto.getFile().getOriginalFilename());
         Animals animals=createAnimalDto.toAnimals();
-        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment(),animals.getOrgans());
+        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment(),animals.getImageUrl(),animals.getOrgans());
         return createAnimalDto;
     }
 

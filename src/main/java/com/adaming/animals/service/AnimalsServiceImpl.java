@@ -42,6 +42,24 @@ public class AnimalsServiceImpl implements AnimalsService {
 
     }
 
+    @Override
+    public void createAnimal(String name, String category, String environment, String imageUrl, List<Organs> organsList) {
+        Animals animal=new Animals(name,category,environment,imageUrl,organsList);
+        if(organsList==null){
+            animalsRepository.save(animal);
+        } else {
+            for (int i = 0; i < organsList.size(); i++) {
+                Organs organToTest = organsService.showSpecificOrgan(organsList.get(i).getName());
+                if (organToTest != null) {
+                    organsList.set(i, organToTest);
+                } else {
+                    organsService.saveOrgan(organsList.get(i));
+                }
+            }
+            animal=new Animals(name,category,environment,imageUrl,organsList);
+            animalsRepository.save(animal);
+        }
+    }
 
     @Override
     public void deleteAnimalByName(String name) {

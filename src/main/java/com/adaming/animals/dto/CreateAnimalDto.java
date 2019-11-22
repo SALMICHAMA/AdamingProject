@@ -2,6 +2,7 @@ package com.adaming.animals.dto;
 
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,17 +12,18 @@ public class CreateAnimalDto {
     private String category;
     private String environment;
     private List<Organs> organsList;
+    private MultipartFile file;
     private String imageUrl;
 
     public CreateAnimalDto(){
     }
 
-    public CreateAnimalDto(String name, String category, String environment, List<Organs> organsList,String imageUrl) {
+    public CreateAnimalDto(String name, String category, String environment, List<Organs> organsList,MultipartFile file) {
         this.name = name;
         this.category = category;
         this.environment = environment;
         this.organsList = organsList;
-        this.imageUrl=imageUrl;
+        this.file=file;
     }
 
     public String getName() {
@@ -62,6 +64,14 @@ public class CreateAnimalDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     public Animals toAnimals(){
