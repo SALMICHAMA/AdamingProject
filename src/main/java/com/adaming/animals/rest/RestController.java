@@ -52,7 +52,7 @@ public class RestController {
     }
     @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto, @RequestParam(name = "picture") MultipartFile file) {
-        List<Organs> organs=(List<Organs>) createAnimalDto.getOrgansList();
+        List<Organs> organs=createAnimalDto.getOrgansList();
         for(int i=0;i<organs.size();i++){
             Organs organToTest=organsService.showSpecificOrgan(organs.get(i).getName());
             if(organToTest==null){

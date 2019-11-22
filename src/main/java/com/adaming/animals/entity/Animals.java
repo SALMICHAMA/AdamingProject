@@ -3,7 +3,6 @@ package com.adaming.animals.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="animals")
@@ -21,7 +20,7 @@ public class Animals implements Serializable {
     @JoinTable (name = "animals_organs",
             joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "organs_id",referencedColumnName = "id"))
-    private Set<Organs> organs;
+    private List<Organs> organs;
 
     public Animals(){}
 
@@ -30,13 +29,13 @@ public class Animals implements Serializable {
         this.category=category;
         this.environment=environment;
     }
-    public Animals(String name,String category,String environment, Set<Organs> organs){
+    public Animals(String name,String category,String environment, List<Organs> organs){
         this.name=name;
         this.category=category;
         this.environment=environment;
         this.organs=organs;
     }
-    public Animals(String name,String category,String environment,String imageUrl, Set<Organs> organs){
+    public Animals(String name,String category,String environment,String imageUrl, List<Organs> organs){
         this.name=name;
         this.category=category;
         this.environment=environment;
@@ -79,5 +78,11 @@ public class Animals implements Serializable {
         this.category = category;
     }
 
+    public List<Organs> getOrgans() {
+        return organs;
+    }
 
+    public void setOrgans(List<Organs> organs) {
+        this.organs = organs;
+    }
 }

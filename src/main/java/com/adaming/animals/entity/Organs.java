@@ -2,7 +2,7 @@ package com.adaming.animals.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="organs")
@@ -16,7 +16,9 @@ public class Organs implements Serializable {
     private boolean isVital;
 
     @ManyToMany(mappedBy = "organs")
-    Set<Animals> animals;
+    List<Animals> animals;
+
+
     public Organs() {
     }
 
@@ -58,5 +60,13 @@ public class Organs implements Serializable {
 
     public void setVital(boolean vital) {
         isVital = vital;
+    }
+
+    public List<Animals> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animals> animals) {
+        this.animals = animals;
     }
 }

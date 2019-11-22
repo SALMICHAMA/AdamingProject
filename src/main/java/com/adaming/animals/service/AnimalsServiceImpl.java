@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AnimalsServiceImpl implements AnimalsService {
@@ -20,15 +19,12 @@ public class AnimalsServiceImpl implements AnimalsService {
         animalsRepository.save(animal);
     }
 
-    public void createAnimal(String name, String category, String environment, Set<Organs> organsList) {
+    @Override
+    public void createAnimal(String name, String category, String environment, List<Organs> organsList) {
         Animals animal=new Animals(name,category,environment,organsList);
         animalsRepository.save(animal);
     }
 
-    @Override
-    public void createAnimal(String name, String category, String environment, List<Organs> organsList) {
-
-    }
 
     @Override
     public void deleteAnimalByName(String name) {
