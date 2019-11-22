@@ -2,10 +2,10 @@ package com.adaming.animals.rest;
 
 import com.adaming.animals.dto.AnimalDto;
 import com.adaming.animals.dto.CreateAnimalDto;
-import com.adaming.animals.entity.Animals;
-import com.adaming.animals.entity.Organs;
-import com.adaming.animals.service.animals.AnimalsServiceImpl;
-import com.adaming.animals.service.organs.OrgansServiceImpl;
+import com.adaming.animals.entity.Animal;
+import com.adaming.animals.entity.Organ;
+import com.adaming.animals.service.animals.AnimalServiceImpl;
+import com.adaming.animals.service.organs.OrganServiceImpl;
 import com.adaming.animals.service.storage.ImageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -24,9 +24,9 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    OrgansServiceImpl organsService;
+    OrganServiceImpl organsService;
     @Autowired
-    AnimalsServiceImpl animalsService;
+    AnimalServiceImpl animalsService;
     @Autowired
     ImageServiceImpl imageServiceImpl;
 
@@ -35,15 +35,15 @@ public class RestController {
      * @return the animal's characteristics
      */
     @GetMapping(path = "animals/{id}")
-    public Animals animals_id(@PathVariable(name = "id") long idToShow) {
-        Animals animals = animalsService.findById(idToShow);
-        MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animals.getImageUrl());
-        return animals;
+    public Animal animals_id(@PathVariable(name = "id") long idToShow) {
+        Animal animal = animalsService.findById(idToShow);
+        MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animal.getImageUrl());
+        return animal;
     }
 
     @GetMapping("/animals")
-    public List<Animals> displayAllAnimals(Model model) {
-        List<Animals> list = animalsService.showAllAnimals();
+    public List<Animal> displayAllAnimals(Model model) {
+        List<Animal> list = animalsService.showAllAnimals();
         model.addAttribute("animalList", list);
         return list;
     }
@@ -53,20 +53,20 @@ public class RestController {
         imageServiceImpl.storeAvatar(createAnimalDto.getFile());
         createAnimalDto.setImageUrl("/uploads/" + createAnimalDto.getFile().getOriginalFilename());
 
-        Animals animals = animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrgansList());
-        return animals.toAnimalsDto();
+        Animal animal = animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
+        return animal.toAnimalsDto();
     }
 
     @PostMapping(path = "animals/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Animals> deleteAnimal(@PathVariable(name = "name") String animalName) {
+    public List<Animal> deleteAnimal(@PathVariable(name = "name") String animalName) {
         animalsService.deleteAnimalByName(animalName);
-        List<Animals> animalsList = animalsService.showAllAnimals();
-        return animalsList;
+        List<Animal> animalList = animalsService.showAllAnimals();
+        return animalList;
     }
 
     @GetMapping("/organ")
-    public Organs nameOrgan(@RequestParam(name = "name", required = false) String name, Model model) {
-        Organs organ = organsService.showSpecificOrgan(name);
+    public Organ nameOrgan(@RequestParam(name = "name", required = false) String name, Model model) {
+        Organ organ = organsService.showSpecificOrgan(name);
 
         if (organ == null) {
             model.addAttribute("organNotFound", true);
@@ -78,23 +78,23 @@ public class RestController {
 
 
     @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Organs addOrganSubmit(@RequestBody Organs organ) {
+    public Organ addOrganSubmit(@RequestBody Organ organ) {
         organsService.addOrgan(organ.getName(), organ.getDescription(), organ.isVital());
         return organ;
     }
 
     @GetMapping("/organs")
-    public List<Organs> displayAllOrgans(Model model) {
-        List<Organs> organList = organsService.showAllOrgans();
+    public List<Organ> displayAllOrgans(Model model) {
+        List<Organ> organList = organsService.showAllOrgans();
         model.addAttribute("organList", organList);
         return organList;
     }
 
     @PostMapping(path = "/organs/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Organs> deleteOrgan(@PathVariable(name = "name") String organName) {
-        Organs organ = organsService.deleteOrgan(organName);
-        List<Organs> organsList = organsService.showAllOrgans();
-        return organsList;
+    public List<Organ> deleteOrgan(@PathVariable(name = "name") String organName) {
+        Organ organ = organsService.deleteOrgan(organName);
+        List<Organ> organList = organsService.showAllOrgans();
+        return organList;
     }
 
 

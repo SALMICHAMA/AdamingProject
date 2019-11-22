@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "animals")
-public class Animals implements Serializable {
+public class Animal implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,25 +22,25 @@ public class Animals implements Serializable {
     @JoinTable(name = "animals_organs",
             joinColumns = @JoinColumn(name = "animals_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "organs_id", referencedColumnName = "id"))
-    private List<Organs> organs;
+    private List<Organ> organs;
 
-    public Animals() {
+    public Animal() {
     }
 
-    public Animals(String name, String category, String environment) {
+    public Animal(String name, String category, String environment) {
         this.name = name;
         this.category = category;
         this.environment = environment;
     }
 
-    public Animals(String name, String category, String environment, List<Organs> organs) {
+    public Animal(String name, String category, String environment, List<Organ> organs) {
         this.name = name;
         this.category = category;
         this.environment = environment;
         this.organs = organs;
     }
 
-    public Animals(String name, String category, String environment, String imageUrl, List<Organs> organs) {
+    public Animal(String name, String category, String environment, String imageUrl, List<Organ> organs) {
         this.name = name;
         this.category = category;
         this.environment = environment;
@@ -88,11 +88,11 @@ public class Animals implements Serializable {
         this.category = category;
     }
 
-    public List<Organs> getOrgans() {
+    public List<Organ> getOrgans() {
         return organs;
     }
 
-    public void setOrgans(List<Organs> organs) {
+    public void setOrgans(List<Organ> organs) {
         this.organs = organs;
     }
 }

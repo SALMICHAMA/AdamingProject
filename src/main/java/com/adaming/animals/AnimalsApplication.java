@@ -1,11 +1,11 @@
 package com.adaming.animals;
 
 
-import com.adaming.animals.entity.Animals;
-import com.adaming.animals.entity.Organs;
-import com.adaming.animals.service.animals.AnimalsServiceImpl;
+import com.adaming.animals.entity.Animal;
+import com.adaming.animals.entity.Organ;
+import com.adaming.animals.service.animals.AnimalServiceImpl;
 import com.adaming.animals.service.storage.ImageServiceImpl;
-import com.adaming.animals.service.organs.OrgansServiceImpl;
+import com.adaming.animals.service.organs.OrganServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,22 +22,22 @@ public class AnimalsApplication implements CommandLineRunner{
     }
 
     @Autowired
-    AnimalsServiceImpl animalsService;
+    AnimalServiceImpl animalsService;
     @Autowired
-    OrgansServiceImpl organsService;
+    OrganServiceImpl organsService;
     @Autowired
     ImageServiceImpl imageServiceImpl;
 
     @Override
     public void run(String... args) throws Exception {
-        List<Organs> list=new ArrayList<>();
+        List<Organ> list=new ArrayList<>();
         imageServiceImpl.init();
-        Organs organ = new Organs();
+        Organ organ = new Organ();
         organ.setName("lung");
         organ.setDescription("organe necessaire pour respirer");
         organ.setVital(true);
 
-        Organs organ2 = new Organs();
+        Organ organ2 = new Organ();
         organ2.setName("heart");
         organ2.setDescription("pump the blood");
         organ2.setVital(true);
@@ -46,11 +46,11 @@ public class AnimalsApplication implements CommandLineRunner{
 
         organsService.saveOrgan(organ);
         organsService.saveOrgan(organ2);
-        Animals animals=new Animals("dog","mammal","terrestre");
-        animalsService.createAnimal(animals.getName(),animals.getCategory(),animals.getEnvironment());
-        Animals animal2=new Animals("cat","mammal","terrestre",list);
+        Animal animal =new Animal("dog","mammal","terrestre");
+        animalsService.createAnimal(animal.getName(), animal.getCategory(), animal.getEnvironment());
+        Animal animal2=new Animal("cat","mammal","terrestre",list);
         animalsService.createAnimal(animal2.getName(),animal2.getCategory(),animal2.getEnvironment(),animal2.getOrgans());
-        Animals animal3=new Animals("crocodile","reptile","swamp");
+        Animal animal3=new Animal("crocodile","reptile","swamp");
         animalsService.createAnimal(animal3.getName(),animal3.getCategory(),animal3.getEnvironment());
 
 

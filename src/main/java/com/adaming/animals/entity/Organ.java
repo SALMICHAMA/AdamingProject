@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name="organs")
-public class Organs implements Serializable {
+public class Organ implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,19 +16,19 @@ public class Organs implements Serializable {
     private boolean isVital;
 
     @ManyToMany(mappedBy = "organs",fetch = FetchType.EAGER)
-    List<Animals> animals;
+    List<Animal> animals;
 
 
-    public Organs() {
+    public Organ() {
     }
 
-    public Organs(String name, String description) {
+    public Organ(String name, String description) {
         this.name = name;
         this.description = description;
 
     }
 
-    public Organs(String name, String description, boolean isVital) {
+    public Organ(String name, String description, boolean isVital) {
         this.name = name;
         this.description = description;
         this.isVital = isVital;
@@ -62,11 +62,11 @@ public class Organs implements Serializable {
         isVital = vital;
     }
 
-    public List<Animals> getAnimals() {
+    public List<Animal> getAnimals() {
         return animals;
     }
 
-    public void setAnimals(List<Animals> animals) {
+    public void setAnimals(List<Animal> animals) {
         this.animals = animals;
     }
 }

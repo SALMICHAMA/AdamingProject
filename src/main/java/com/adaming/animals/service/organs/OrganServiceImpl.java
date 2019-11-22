@@ -1,6 +1,6 @@
 package com.adaming.animals.service.organs;
 
-import com.adaming.animals.entity.Organs;
+import com.adaming.animals.entity.Organ;
 import com.adaming.animals.repository.OrgansRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,40 +8,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrgansServiceImpl implements OrgansService{
+public class OrganServiceImpl implements OrgansService{
 
     @Autowired
     OrgansRepository organsRepository;
 
     @Override
-    public void saveOrgan(Organs organ) {
+    public void saveOrgan(Organ organ) {
         organsRepository.save(organ);
     }
 
 
     @Override
     public void addOrgan(String organName, String organDescription,boolean isVital) {
-        Organs organ = new Organs(organName, organDescription, isVital);
+        Organ organ = new Organ(organName, organDescription, isVital);
         organsRepository.save(organ);
     }
 
 
     @Override
-    public Organs deleteOrgan(String name) {
-        Organs organs =organsRepository.getOrganByName(name);
-        organsRepository.delete(organs);
+    public Organ deleteOrgan(String name) {
+        Organ organ =organsRepository.getOrganByName(name);
+        organsRepository.delete(organ);
 
-        return organs;
+        return organ;
     }
 
     @Override
-    public List <Organs> showAllOrgans() {
-        return (List<Organs>) organsRepository.findAll();
+    public List <Organ> showAllOrgans() {
+        return (List<Organ>) organsRepository.findAll();
     }
 
 
     @Override
-    public Organs showSpecificOrgan(String organName) {
+    public Organ showSpecificOrgan(String organName) {
         return organsRepository.getOrganByName(organName);
     }
 

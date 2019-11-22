@@ -1,18 +1,15 @@
 package com.adaming.animals.repository;
 
-import com.adaming.animals.entity.Animals;
+import com.adaming.animals.entity.Animal;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Repository
-public interface AnimalsRepository extends CrudRepository<Animals, Long> {
+public interface AnimalsRepository extends CrudRepository<Animal, Long> {
 
-    Animals getAnimalsByName(String name);
+    Animal getAnimalsByName(String name);
     void deleteAnimalsById(Long id);
-    Animals getAnimalsById(Long id);
+    Animal getAnimalsById(Long id);
 
 
 

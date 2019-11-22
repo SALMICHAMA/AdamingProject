@@ -1,7 +1,7 @@
 package com.adaming.animals.service.animals;
 
-import com.adaming.animals.entity.Animals;
-import com.adaming.animals.entity.Organs;
+import com.adaming.animals.entity.Animal;
+import com.adaming.animals.entity.Organ;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ public interface AnimalsService {
 
 
     void createAnimal(String name,String category,String environment);
-    void createAnimal(String name, String category, String environment, List<Organs> organsList);
-    Animals createAnimal(String name, String category, String environment, String imageUrl, List<Organs> organsList);
+    void createAnimal(String name, String category, String environment, List<Organ> organList);
+    Animal createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList);
     void deleteAnimalByName(String name);
-    List<Animals> showAllAnimals();
-    //List<Animals> showAnimalsByAnimalGroup(String animal_group);
-    Animals showSpecificAnimal(String name);
-    Animals findById(Long id);
+    List<Animal> showAllAnimals();
+    //List<Animal> showAnimalsByAnimalGroup(String animal_group);
+    Animal showSpecificAnimal(String name);
+    Animal findById(Long id);
 
 }

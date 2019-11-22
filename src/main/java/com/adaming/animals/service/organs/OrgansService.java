@@ -1,15 +1,15 @@
 package com.adaming.animals.service.organs;
 
-import com.adaming.animals.entity.Organs;
+import com.adaming.animals.entity.Organ;
 
 import java.util.List;
 
 public interface OrgansService {
 
-    public void saveOrgan(Organs organs);
+    public void saveOrgan(Organ organ);
     public void addOrgan(String organName, String organDescription, boolean isVital);
 
-    public Organs deleteOrgan(String name);
-    public List<Organs> showAllOrgans();
-    public Organs showSpecificOrgan(String organName);
+    public Organ deleteOrgan(String name);
+    public List<Organ> showAllOrgans();
+    public Organ showSpecificOrgan(String organName);
 }
