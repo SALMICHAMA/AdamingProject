@@ -4,6 +4,7 @@ package com.adaming.animals;
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.service.AnimalsServiceImpl;
+import com.adaming.animals.service.ImageService;
 import com.adaming.animals.service.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,9 +22,11 @@ public class AnimalsApplication implements CommandLineRunner{
     AnimalsServiceImpl animalsService;
     @Autowired
     OrgansServiceImpl organsService;
-
+    @Autowired
+    ImageService imageService;
     @Override
     public void run(String... args) throws Exception {
+        imageService.init();
         Animals animals=new Animals("dog","mammal","terrestre");
         animalsService.createAnimal(animals.getName(),animals.getCategory(),animals.getEnvironment());
         Animals animal2=new Animals("cat","mammal","terrestre");
