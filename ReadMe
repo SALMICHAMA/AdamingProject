@@ -15,3 +15,7 @@ To complete DataBase for everybody :
         - create Entities and save them in the CommandLineRunner
 
 -----------------------------------------------------------------------------------------------------
+
+To link with AngularProject :
+
+--> remove commentary // to CrossOrigin in RestController

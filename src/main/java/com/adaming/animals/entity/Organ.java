@@ -76,8 +76,10 @@ public class Organ implements Serializable {
 
     public OrganDto toDto() {
         List<AnimalDto> animalsDto = new ArrayList<>();
-        for (Animal a : this.animals) {
-            animalsDto.add(a.toAnimalsDto());
+        if(this.animals!=null){
+            for (Animal a : this.animals) {
+                animalsDto.add(a.toAnimalsDto());
+            }
         }
         return new OrganDto(this.id, this.name, this.description, this.isVital, animalsDto);
     }
