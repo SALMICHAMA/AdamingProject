@@ -1,0 +1,17 @@
+To initialize the project :
+
+--> Create a new DataBase called : animalproject
+
+--> Check informations in src/main/resources/application.properties :
+        - username : root (default)
+        - password :"empty" (default)
+        - port : 3306 (MySQL MariaDB)
+
+-----------------------------------------------------------------------------------------------------
+
+To complete DataBase for everybody :
+
+--> In src/main/java/com/adaming/animals/AnimalsApplication.java :
+        - create Entities and save them in the CommandLineRunner
+
+-----------------------------------------------------------------------------------------------------
