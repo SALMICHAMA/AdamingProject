@@ -2,6 +2,7 @@ package com.adaming.animals.rest;
 
 import com.adaming.animals.dto.AnimalDto;
 import com.adaming.animals.dto.CreateAnimalDto;
+import com.adaming.animals.dto.OrganDto;
 import com.adaming.animals.entity.Animal;
 import com.adaming.animals.entity.Organ;
 import com.adaming.animals.service.animals.AnimalServiceImpl;
@@ -64,16 +65,10 @@ public class RestController {
         return animalList;
     }
 
-    @GetMapping("/organ")
-    public Organ nameOrgan(@RequestParam(name = "name", required = false) String name, Model model) {
+    @GetMapping("/organs/{name}")
+    public OrganDto nameOrgan(@PathVariable(name = "name") String name, Model model) {
         Organ organ = organsService.showSpecificOrgan(name);
-
-        if (organ == null) {
-            model.addAttribute("organNotFound", true);
-        } else {
-            model.addAttribute("organ", organ);
-        }
-        return organ;
+        return organ.toDto();
     }
 
 

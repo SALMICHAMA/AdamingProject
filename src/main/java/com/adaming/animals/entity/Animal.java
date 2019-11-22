@@ -53,7 +53,7 @@ public class Animal implements Serializable {
     }
 
     public AnimalDto toAnimalsDto() {
-        return new AnimalDto(this.id, this.name, this.category, this.environment, this.organs, this.imageUrl);
+        return new AnimalDto(this.id, this.name, this.category, this.environment, this.imageUrl);
     }
 
     public String getName() {

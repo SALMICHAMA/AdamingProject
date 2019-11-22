@@ -1,11 +1,15 @@
 package com.adaming.animals.entity;
 
+import com.adaming.animals.dto.AnimalDto;
+import com.adaming.animals.dto.OrganDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="organs")
+@Table(name = "organs")
 public class Organ implements Serializable {
 
     @Id
@@ -15,7 +19,7 @@ public class Organ implements Serializable {
     private String description;
     private boolean isVital;
 
-    @ManyToMany(mappedBy = "organs",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "organs", fetch = FetchType.EAGER)
     List<Animal> animals;
 
 
@@ -68,5 +72,13 @@ public class Organ implements Serializable {
 
     public void setAnimals(List<Animal> animals) {
         this.animals = animals;
+    }
+
+    public OrganDto toDto() {
+        List<AnimalDto> animalsDto = new ArrayList<>();
+        for (Animal a : this.animals) {
+            animalsDto.add(a.toAnimalsDto());
+        }
+        return new OrganDto(this.id, this.name, this.description, this.isVital, animalsDto);
     }
 }

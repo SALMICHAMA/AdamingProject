@@ -1,25 +1,18 @@
 package com.adaming.animals.dto;
 
-import com.adaming.animals.entity.Organ;
-
-import java.util.List;
-
-
 public class AnimalDto {
 
     private Long id;
     private String name;
     private String category;
     private String environment;
-    private List<Organ> organList;
     private String imageUrl;
 
-    public AnimalDto(Long id, String name, String category, String environment, List<Organ> organList, String imageUrl) {
+    public AnimalDto(Long id, String name, String category, String environment, String imageUrl) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.environment = environment;
-        this.organList = organList;
         this.imageUrl = imageUrl;
     }
 
@@ -53,14 +46,6 @@ public class AnimalDto {
 
     public void setEnvironment(String environment) {
         this.environment = environment;
-    }
-
-    public List<Organ> getOrganList() {
-        return organList;
-    }
-
-    public void setOrganList(List<Organ> organList) {
-        this.organList = organList;
     }
 
     public String getImageUrl() {
