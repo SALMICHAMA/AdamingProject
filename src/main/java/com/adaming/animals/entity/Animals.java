@@ -29,11 +29,12 @@ public class Animals implements Serializable {
         this.category=category;
         this.environment=environment;
     }
-    public Animals(String name,String category,String environment,List<Organs> organsList){
+    public Animals(String name,String category,String environment,List<Organs> organsList,String imageUrl){
         this.name=name;
         this.category=category;
         this.environment=environment;
         this.organsList=organsList;
+        this.imageUrl=imageUrl;
     }
     public Long getId() {
         return id;

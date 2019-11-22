@@ -49,7 +49,7 @@ public class RestController {
         return list;
     }
     @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
+    public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto, @RequestParam(name = "picture") MultipartFile file) {
         List<Organs> organs=createAnimalDto.getOrgansList();
         for(int i=0;i<organs.size();i++){
             Organs organToTest=organsService.showSpecificOrgan(organs.get(i).getName());
@@ -57,13 +57,15 @@ public class RestController {
                 organsService.addOrgan(organs.get(i).getName(), organs.get(i).getDescription(),organs.get(i).isVital());
             }
         }
+        createAnimalDto.setImageUrl("/uploads/"+file.getOriginalFilename());
+        imageService.storeAvatar(file);
         Animals animals=createAnimalDto.toAnimals();
         animals.setOrgansList(organs);
         animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment());
         return animals;
     }
 
-    @PostMapping(path = "animal/delete/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "animals/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Animals> deleteAnimal(@PathVariable(name = "name") String animalName){
         animalsService.deleteAnimalByName(animalName);
         List<Animals> animalsList=animalsService.showAllAnimals();
@@ -86,7 +88,7 @@ public class RestController {
     @PostMapping(path = "/organs/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organs addOrganSubmit(@RequestBody Organs organ) {
         organsService.addOrgan(organ.getName(), organ.getDescription(),organ.isVital());
-             return organ;
+        return organ;
         }
 
     @GetMapping("/organs")
@@ -96,7 +98,7 @@ public class RestController {
         return organList;
     }
 
-    @GetMapping ("/organ/delete/{name}")
+    @PostMapping (path = "/organs/{name}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Organs> deleteOrgan(@PathVariable (name="name") String organName){
         Organs organ = organsService.deleteOrgan(organName);
         List<Organs> organsList = organsService.showAllOrgans();

@@ -10,15 +10,17 @@ public class CreateAnimalDto {
     private String category;
     private String environment;
     private List<Organs> organsList;
+    private String imageUrl;
 
     public CreateAnimalDto(){
     }
 
-    public CreateAnimalDto(String name, String category, String environment, List<Organs> organsList) {
+    public CreateAnimalDto(String name, String category, String environment, List<Organs> organsList,String imageUrl) {
         this.name = name;
         this.category = category;
         this.environment = environment;
         this.organsList = organsList;
+        this.imageUrl=imageUrl;
     }
 
     public String getName() {
@@ -52,7 +54,16 @@ public class CreateAnimalDto {
     public void setOrgansList(List<Organs> organsList) {
         this.organsList = organsList;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Animals toAnimals(){
-        return new Animals(this.name,this.category,this.environment,this.organsList);
+        return new Animals(this.name,this.category,this.environment,this.organsList,this.imageUrl);
     }
 }
