@@ -15,7 +15,7 @@ public class Organs implements Serializable {
     private String description;
     private boolean isVital;
 
-    @ManyToMany(mappedBy = "organs")
+    @ManyToMany(mappedBy = "organs",fetch = FetchType.EAGER)
     List<Animals> animals;
 
 

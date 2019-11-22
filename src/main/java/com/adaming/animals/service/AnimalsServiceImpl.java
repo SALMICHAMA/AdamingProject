@@ -3,6 +3,7 @@ package com.adaming.animals.service;
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.repository.AnimalsRepository;
+import com.adaming.animals.repository.OrgansRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,8 @@ import java.util.List;
 public class AnimalsServiceImpl implements AnimalsService {
     @Autowired
     AnimalsRepository animalsRepository;
-
+    @Autowired
+    OrgansServiceImpl organsService;
     @Override
     public void createAnimal(String name,String category,String environment) {
         Animals animal=new Animals(name,category,environment);
@@ -22,7 +24,22 @@ public class AnimalsServiceImpl implements AnimalsService {
     @Override
     public void createAnimal(String name, String category, String environment, List<Organs> organsList) {
         Animals animal=new Animals(name,category,environment,organsList);
-        animalsRepository.save(animal);
+        if(organsList==null){
+            animalsRepository.save(animal);
+        } else {
+            for (int i = 0; i < organsList.size(); i++) {
+                Organs organToTest = organsService.showSpecificOrgan(organsList.get(i).getName());
+                if (organToTest != null) {
+                    organsList.set(i, organToTest);
+                } else {
+                    organsService.saveOrgan(organsList.get(i));
+                }
+            }
+            animal=new Animals(name,category,environment,organsList);
+            animalsRepository.save(animal);
+        }
+
+
     }
 
 

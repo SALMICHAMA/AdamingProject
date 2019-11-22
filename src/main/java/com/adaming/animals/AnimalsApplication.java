@@ -50,7 +50,7 @@ public class AnimalsApplication implements CommandLineRunner{
         Animals animals=new Animals("dog","mammal","terrestre");
         animalsService.createAnimal(animals.getName(),animals.getCategory(),animals.getEnvironment());
         Animals animal2=new Animals("cat","mammal","terrestre",list);
-        animalsService.createAnimal(animal2.getName(),animal2.getCategory(),animal2.getEnvironment(),list);
+        animalsService.createAnimal(animal2.getName(),animal2.getCategory(),animal2.getEnvironment(),animal2.getOrgans());
         Animals animal3=new Animals("crocodile","reptile","swamp");
         animalsService.createAnimal(animal3.getName(),animal3.getCategory(),animal3.getEnvironment());
 
