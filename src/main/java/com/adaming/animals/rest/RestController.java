@@ -21,6 +21,7 @@ import java.util.List;
 
 
 @org.springframework.web.bind.annotation.RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class RestController {
 
@@ -66,7 +67,7 @@ public class RestController {
     }
 
     @GetMapping("/organs/{name}")
-    public OrganDto nameOrgan(@PathVariable(name = "name") String name, Model model) {
+    public OrganDto nameOrgan(@PathVariable(name = "name") String name) {
         Organ organ = organsService.showSpecificOrgan(name);
         return organ.toDto();
     }
