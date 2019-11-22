@@ -39,7 +39,6 @@ public class RestController {
     @GetMapping(path = "animals/{id}")
     public Animals animals_id(@PathVariable(name = "id") long idToShow) {
         Animals animals = animalsService.findById(idToShow);
-        @ResponseBody
         MultipartFile file=(MultipartFile) imageService.loadAsResource(animals.getImageUrl());
         return animals;
     }
