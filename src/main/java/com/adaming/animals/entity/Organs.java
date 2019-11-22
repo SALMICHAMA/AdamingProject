@@ -2,6 +2,7 @@ package com.adaming.animals.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="organs")
@@ -14,6 +15,8 @@ public class Organs implements Serializable {
     private String description;
     private boolean isVital;
 
+    @ManyToMany(mappedBy = "organs")
+    Set<Animals> animals;
     public Organs() {
     }
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,7 +52,7 @@ public class RestController {
     }
     @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto, @RequestParam(name = "picture") MultipartFile file) {
-        List<Organs> organs=createAnimalDto.getOrgansList();
+        List<Organs> organs=(List<Organs>) createAnimalDto.getOrgansList();
         for(int i=0;i<organs.size();i++){
             Organs organToTest=organsService.showSpecificOrgan(organs.get(i).getName());
             if(organToTest==null){
@@ -61,7 +62,6 @@ public class RestController {
         createAnimalDto.setImageUrl("/uploads/"+file.getOriginalFilename());
         imageService.storeAvatar(file);
         Animals animals=createAnimalDto.toAnimals();
-        animals.setOrgansList(organs);
         animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment());
         return animals;
     }

@@ -4,18 +4,19 @@ import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 
 import java.util.List;
+import java.util.Set;
 
 public class CreateAnimalDto {
     private String name;
     private String category;
     private String environment;
-    private List<Organs> organsList;
+    private Set<Organs> organsList;
     private String imageUrl;
 
     public CreateAnimalDto(){
     }
 
-    public CreateAnimalDto(String name, String category, String environment, List<Organs> organsList,String imageUrl) {
+    public CreateAnimalDto(String name, String category, String environment, Set<Organs> organsList,String imageUrl) {
         this.name = name;
         this.category = category;
         this.environment = environment;
@@ -47,11 +48,11 @@ public class CreateAnimalDto {
         this.environment = environment;
     }
 
-    public List<Organs> getOrgansList() {
+    public Set<Organs> getOrgansList() {
         return organsList;
     }
 
-    public void setOrgansList(List<Organs> organsList) {
+    public void setOrgansList(Set<Organs> organsList) {
         this.organsList = organsList;
     }
 
@@ -64,6 +65,6 @@ public class CreateAnimalDto {
     }
 
     public Animals toAnimals(){
-        return new Animals(this.name,this.category,this.environment,this.organsList,this.imageUrl);
+        return new Animals(this.name,this.category,this.environment,this.imageUrl,this.organsList);
     }
 }
