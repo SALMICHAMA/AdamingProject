@@ -1,9 +1,11 @@
 package com.adaming.animals.entity;
 
 import com.adaming.animals.dto.AnimalDto;
+import com.adaming.animals.dto.OrganDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -53,7 +55,11 @@ public class Animal implements Serializable {
     }
 
     public AnimalDto toAnimalsDto() {
-        return new AnimalDto(this.id, this.name, this.category, this.environment, this.imageUrl);
+        List<OrganDto> organsListDto = new ArrayList<>();
+        for (Organ o : this.organs) {
+            organsListDto.add(o.toDto());
+        }
+        return new AnimalDto(this.id, this.name, this.category, this.environment, this.imageUrl, organsListDto);
     }
 
     public String getName() {

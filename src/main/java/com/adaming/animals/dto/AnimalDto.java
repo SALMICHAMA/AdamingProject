@@ -1,5 +1,7 @@
 package com.adaming.animals.dto;
 
+import java.util.List;
+
 public class AnimalDto {
 
     private Long id;
@@ -7,13 +9,15 @@ public class AnimalDto {
     private String category;
     private String environment;
     private String imageUrl;
+    private List<OrganDto> organsList;
 
-    public AnimalDto(Long id, String name, String category, String environment, String imageUrl) {
+    public AnimalDto(Long id, String name, String category, String environment, String imageUrl, List<OrganDto> organDtos) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.environment = environment;
         this.imageUrl = imageUrl;
+        this.organsList = organDtos;
     }
 
     public Long getId() {
@@ -54,5 +58,13 @@ public class AnimalDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<OrganDto> getOrgansList() {
+        return organsList;
+    }
+
+    public void setOrgansList(List<OrganDto> organsList) {
+        this.organsList = organsList;
     }
 }
