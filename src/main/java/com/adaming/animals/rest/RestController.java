@@ -3,9 +3,9 @@ package com.adaming.animals.rest;
 import com.adaming.animals.dto.CreateAnimalDto;
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
-import com.adaming.animals.service.AnimalsServiceImpl;
-import com.adaming.animals.service.ImageService;
-import com.adaming.animals.service.OrgansServiceImpl;
+import com.adaming.animals.service.animals.AnimalsServiceImpl;
+import com.adaming.animals.service.storage.ImageServiceImpl;
+import com.adaming.animals.service.organs.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +29,7 @@ public class RestController {
     @Autowired
     AnimalsServiceImpl animalsService;
     @Autowired
-    ImageService imageService;
+    ImageServiceImpl imageServiceImpl;
 
     /**
      *
@@ -40,7 +39,7 @@ public class RestController {
     @GetMapping(path = "animals/{id}")
     public Animals animals_id(@PathVariable(name = "id") long idToShow) {
         Animals animals = animalsService.findById(idToShow);
-        MultipartFile file=(MultipartFile) imageService.loadAsResource(animals.getImageUrl());
+        MultipartFile file=(MultipartFile) imageServiceImpl.loadAsResource(animals.getImageUrl());
         return animals;
     }
 
@@ -52,7 +51,7 @@ public class RestController {
     }
     @PostMapping(path = "/animal/add",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
     public CreateAnimalDto addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
-        imageService.storeAvatar(createAnimalDto.getFile());
+        imageServiceImpl.storeAvatar(createAnimalDto.getFile());
         createAnimalDto.setImageUrl("/uploads/"+createAnimalDto.getFile().getOriginalFilename());
         Animals animals=createAnimalDto.toAnimals();
         animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment(),animals.getImageUrl(),animals.getOrgans());
@@ -113,7 +112,7 @@ public class RestController {
             System.out.println(file.getName());
             System.out.println(file.getSize());
             System.out.println(file.getContentType());
-            imageService.storeAvatar(file);
+            imageServiceImpl.storeAvatar(file);
         }
         return file;
     }
@@ -121,7 +120,7 @@ public class RestController {
     @GetMapping("/uploads/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename){
-        Resource file = imageService.loadAsResource(filename);
+        Resource file = imageServiceImpl.loadAsResource(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\""+ file.getFilename()+"\"")

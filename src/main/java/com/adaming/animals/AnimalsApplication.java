@@ -3,9 +3,9 @@ package com.adaming.animals;
 
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
-import com.adaming.animals.service.AnimalsServiceImpl;
-import com.adaming.animals.service.ImageService;
-import com.adaming.animals.service.OrgansServiceImpl;
+import com.adaming.animals.service.animals.AnimalsServiceImpl;
+import com.adaming.animals.service.storage.ImageServiceImpl;
+import com.adaming.animals.service.organs.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class AnimalsApplication implements CommandLineRunner{
@@ -27,12 +26,12 @@ public class AnimalsApplication implements CommandLineRunner{
     @Autowired
     OrgansServiceImpl organsService;
     @Autowired
-    ImageService imageService;
+    ImageServiceImpl imageServiceImpl;
 
     @Override
     public void run(String... args) throws Exception {
         List<Organs> list=new ArrayList<>();
-        imageService.init();
+        imageServiceImpl.init();
         Organs organ = new Organs();
         organ.setName("lung");
         organ.setDescription("organe necessaire pour respirer");

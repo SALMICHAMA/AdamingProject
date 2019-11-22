@@ -1,9 +1,9 @@
-package com.adaming.animals.service;
+package com.adaming.animals.service.animals;
 
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
 import com.adaming.animals.repository.AnimalsRepository;
-import com.adaming.animals.repository.OrgansRepository;
+import com.adaming.animals.service.organs.OrgansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

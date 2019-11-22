@@ -1,4 +1,4 @@
-package com.adaming.animals.service;
+package com.adaming.animals.service.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,9 +18,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 @Service
-public class ImageService implements StorageService {
+public class ImageServiceImpl implements StorageService {
     @Autowired
-    public ImageService() {
+    public ImageServiceImpl() {
         this.rootLocation = Paths.get(this.location);
     }
 

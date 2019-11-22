@@ -1,4 +1,4 @@
-package com.adaming.animals.service;
+package com.adaming.animals.service.animals;
 
 import com.adaming.animals.entity.Animals;
 import com.adaming.animals.entity.Organs;
