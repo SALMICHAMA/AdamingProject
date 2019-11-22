@@ -51,18 +51,18 @@ public class RestController {
         return list;
     }
     @PostMapping(path = "/animal/add",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto, @RequestParam(name = "picture") MultipartFile file) {
+    public Animals addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
         List<Organs> organs=createAnimalDto.getOrgansList();
         for(int i=0;i<organs.size();i++){
             Organs organToTest=organsService.showSpecificOrgan(organs.get(i).getName());
             if(organToTest==null){
                 organsService.addOrgan(organs.get(i).getName(), organs.get(i).getDescription(),organs.get(i).isVital());
+            } else {
+                organs.set(i,organToTest);
             }
         }
-        createAnimalDto.setImageUrl("/uploads/"+file.getOriginalFilename());
-        imageService.storeAvatar(file);
         Animals animals=createAnimalDto.toAnimals();
-        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment());
+        animalsService.createAnimal(animals.getName(), animals.getCategory(),animals.getEnvironment(),animals.getOrgans());
         return animals;
     }
 
