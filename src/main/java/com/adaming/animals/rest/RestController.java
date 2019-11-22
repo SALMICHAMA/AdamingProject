@@ -49,8 +49,8 @@ public class RestController {
         model.addAttribute("animalList",list);
         return list;
     }
-    @PostMapping(path = "/animal/add",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
-    public CreateAnimalDto addAnimalSubmit(@RequestBody CreateAnimalDto createAnimalDto) {
+    @PostMapping(path = "/animal/add",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public CreateAnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
         imageServiceImpl.storeAvatar(createAnimalDto.getFile());
         createAnimalDto.setImageUrl("/uploads/"+createAnimalDto.getFile().getOriginalFilename());
         Animals animals=createAnimalDto.toAnimals();

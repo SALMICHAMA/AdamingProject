@@ -19,7 +19,8 @@ import java.util.stream.Stream;
 
 @Service
 public class ImageServiceImpl implements StorageService {
-    @Autowired
+
+//    @Autowired
     public ImageServiceImpl() {
         this.rootLocation = Paths.get(this.location);
     }
