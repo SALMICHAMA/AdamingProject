@@ -46,7 +46,7 @@ public class AnimalServiceImpl implements AnimalsService {
 
     @Override
     public Animal createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList) {
-        Animal animal = new Animal(name, category, environment, imageUrl, organList);
+        Animal animal = new Animal(name, category, environment,imageUrl , organList);
         if (organList == null) {
             return animalsRepository.save(animal);
         } else {

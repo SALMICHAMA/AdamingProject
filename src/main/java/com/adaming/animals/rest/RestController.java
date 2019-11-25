@@ -37,10 +37,12 @@ public class RestController {
      * @return the animal's characteristics
      */
     @GetMapping(path = "/animals/{id}")
-    public Animal animals_id(@PathVariable(name = "id") long idToShow) {
+    public AnimalDto animals_id(@PathVariable(name = "id") long idToShow) {
         Animal animal = animalsService.findById(idToShow);
-        //MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animal.getImageUrl());
-        return animal;
+        Resource file = imageServiceImpl.loadAsResource(animal.getImageUrl());
+        AnimalDto animalDto=animal.toAnimalsDto();
+        animalDto.setFile(file);
+        return animalDto;
     }
 
 

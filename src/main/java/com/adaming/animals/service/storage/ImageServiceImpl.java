@@ -26,7 +26,7 @@ public class ImageServiceImpl implements StorageService {
     }
 
     private final Path rootLocation;
-    private String location= "uploads";
+    private String location= "AdamingProject/uploads";
 
     public void storeAvatar(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());

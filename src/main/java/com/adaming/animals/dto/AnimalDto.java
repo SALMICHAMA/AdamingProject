@@ -1,6 +1,8 @@
 package com.adaming.animals.dto;
 
 import com.adaming.animals.entity.Organ;
+import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class AnimalDto {
     private String environment;
     private String imageUrl;
     private List<OrganDto> organsList;
-
+    private Resource file;
     public AnimalDto(Long id, String name, String category, String environment, String imageUrl, List<OrganDto> organDtos) {
         this.id = id;
         this.name = name;
@@ -68,5 +70,13 @@ public class AnimalDto {
 
     public void setOrgansList(List<OrganDto> organsList) {
         this.organsList = organsList;
+    }
+
+    public Resource getFile() {
+        return file;
+    }
+
+    public void setFile(Resource file) {
+        this.file = file;
     }
 }
