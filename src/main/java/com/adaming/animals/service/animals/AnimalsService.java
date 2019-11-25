@@ -9,11 +9,12 @@ public interface AnimalsService {
 
 
     void createAnimal(String name,String category,String environment);
+    void createAnimal(String name,String category,String environment,String imageUrl);
     void createAnimal(String name, String category, String environment, List<Organ> organList);
-    Animal createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList);
+    void createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList);
     void deleteAnimalByName(String name);
     List<Animal> showAllAnimals();
-    //List<Animal> showAnimalsByAnimalGroup(String animal_group);
+    List<Animal> showAnimalsByCategory(String category);
     Animal showSpecificAnimal(String name);
     Animal findById(Long id);
 

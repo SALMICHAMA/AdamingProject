@@ -1,12 +1,7 @@
 package com.adaming.animals.dto;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class AnimalDto {
 
     private Long id;
@@ -15,7 +10,6 @@ public class AnimalDto {
     private String environment;
     private String imageUrl;
     private List<OrganDto> organsList;
-    public ResponseEntity<Resource> responseEntity;
 
     public AnimalDto(Long id, String name, String category, String environment, String imageUrl, List<OrganDto> organDtos) {
         this.id = id;
@@ -74,11 +68,4 @@ public class AnimalDto {
         this.organsList = organsList;
     }
 
-    public ResponseEntity<Resource> getResponseEntity() {
-        return responseEntity;
-    }
-
-    public void setResponseEntity(ResponseEntity<Resource> responseEntity) {
-        this.responseEntity = responseEntity;
-    }
 }

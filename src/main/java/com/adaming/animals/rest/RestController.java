@@ -37,17 +37,10 @@ public class RestController {
      * @return the animal's characteristics
      */
 
-    @RequestMapping(value = "/animals/{id}", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping(path = "/animal/{id}")
     public AnimalDto animals_id(@PathVariable(name = "id") long idToShow) throws IOException {
         Animal animal = animalsService.findById(idToShow);
-        Resource resource=imageServiceImpl.loadAsResource(animal.getImageUrl());
-        AnimalDto animalDto=animal.toAnimalsDto();
-        ResponseEntity<Resource> respEnt=ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-        animalDto.setResponseEntity(respEnt);
+        AnimalDto animalDto=animal.toAnimalsDto();;
         return animalDto;
     }
 
@@ -72,11 +65,25 @@ public class RestController {
     public AnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
         imageServiceImpl.storeAvatar(createAnimalDto.getFile());
         createAnimalDto.setImageUrl(createAnimalDto.getFile().getOriginalFilename());
-
-        Animal animal = animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
+        animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
+        Animal animal =animalsService.showSpecificAnimal(createAnimalDto.getName());
         return animal.toAnimalsDto();
     }
-
+    @GetMapping("/animals/{category}")
+    public List<CreateAnimalDto> displayByCategory(@PathVariable(name = "category") String category) throws IOException {
+        List<Animal> list=animalsService.showAnimalsByCategory(category);
+        List<CreateAnimalDto> animalDtos = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            CreateAnimalDto animalDtoTemp=new CreateAnimalDto();
+            animalDtoTemp.setName(list.get(i).getName());
+            animalDtoTemp.setImageUrl(list.get(i).getImageUrl());
+            animalDtoTemp.setCategory(list.get(i).getCategory());
+            animalDtoTemp.setEnvironment(list.get(i).getEnvironment());
+            animalDtoTemp.setOrganList(list.get(i).getOrgans());
+            animalDtos.add(animalDtoTemp);
+        }
+        return animalDtos;
+    }
     @PostMapping(path = "animals/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Animal> deleteAnimal(@PathVariable(name = "name") String animalName) {
         animalsService.deleteAnimalByName(animalName);

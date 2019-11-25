@@ -34,7 +34,12 @@ public class Animal implements Serializable {
         this.category = category;
         this.environment = environment;
     }
-
+    public Animal(String name, String category, String environment,String imageUrl) {
+        this.name = name;
+        this.category = category;
+        this.environment = environment;
+        this.imageUrl=imageUrl;
+    }
     public Animal(String name, String category, String environment, List<Organ> organs) {
         this.name = name;
         this.category = category;

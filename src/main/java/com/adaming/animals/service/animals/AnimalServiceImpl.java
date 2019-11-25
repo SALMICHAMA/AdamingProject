@@ -22,7 +22,12 @@ public class AnimalServiceImpl implements AnimalsService {
         Animal animal = new Animal(name, category, environment);
         animalsRepository.save(animal);
     }
-
+    @Override
+    public void createAnimal(String name, String category, String environment,String imageUrl) {
+        imageUrl="http://localhost:8080/api/uploads/"+imageUrl;
+        Animal animal = new Animal(name, category, environment,imageUrl);
+        animalsRepository.save(animal);
+    }
     @Override
     public void createAnimal(String name, String category, String environment, List<Organ> organList) {
         Animal animal = new Animal(name, category, environment, organList);
@@ -45,10 +50,11 @@ public class AnimalServiceImpl implements AnimalsService {
     }
 
     @Override
-    public Animal createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList) {
+    public void createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList) {
+        imageUrl="http://localhost:8080/api/uploads/"+imageUrl;
         Animal animal = new Animal(name, category, environment,imageUrl , organList);
         if (organList == null) {
-            return animalsRepository.save(animal);
+            animalsRepository.save(animal);
         } else {
             for (int i = 0; i < organList.size(); i++) {
                 Organ organToTest = organsService.showSpecificOrgan(organList.get(i).getName());
@@ -59,7 +65,7 @@ public class AnimalServiceImpl implements AnimalsService {
                 }
             }
             animal = new Animal(name, category, environment, imageUrl, organList);
-            return animalsRepository.save(animal);
+            animalsRepository.save(animal);
         }
     }
 
@@ -77,12 +83,12 @@ public class AnimalServiceImpl implements AnimalsService {
         return list;
     }
 
-    //@Override
-    //public List<Animal> showAnimalsByAnimalGroup(String animal_group) {
-    //    List<Animal> list=null;
-    //    list=(List<Animal>) animalsRepository.getAnimalsByAnimal_group(animal_group);
-    //    return list;
-    // }
+    @Override
+    public List<Animal> showAnimalsByCategory(String category) {
+        List<Animal> list=new ArrayList<>();
+        list=(List<Animal>) animalsRepository.getAnimalsByCategory(category);
+        return list;
+     }
 
     @Override
     public Animal showSpecificAnimal(String name) {
