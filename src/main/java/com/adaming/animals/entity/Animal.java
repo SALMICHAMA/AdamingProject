@@ -55,13 +55,14 @@ public class Animal implements Serializable {
     }
 
     public AnimalDto toAnimalsDto() {
-        List<OrganDto> organsListDto = new ArrayList<>();
+        List<OrganDto> organsList = new ArrayList<>();
         if(this.organs!=null){
-            for (Organ o : this.organs) {
-                organsListDto.add(o.toDto());
+            for (int i=0;i<this.organs.size();i++) {
+                Organ o=this.organs.get(i);
+                organsList.add(o.toDto());
             }
         }
-        return new AnimalDto(this.id, this.name, this.category, this.environment, this.imageUrl, organsListDto);
+        return new AnimalDto(this.id, this.name, this.category, this.environment, this.imageUrl, organsList);
     }
 
     public String getName() {

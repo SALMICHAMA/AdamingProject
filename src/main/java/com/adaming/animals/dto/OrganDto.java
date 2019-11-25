@@ -1,5 +1,7 @@
 package com.adaming.animals.dto;
 
+import com.adaming.animals.entity.Animal;
+
 import java.util.List;
 
 public class OrganDto {
@@ -8,15 +10,15 @@ public class OrganDto {
     private String name;
     private String description;
     private boolean isVital;
-    private List<AnimalDto> animals;
+//    private List<AnimalDto> animals;
 
-    public OrganDto(Long id, String name, String description, boolean isVital, List<AnimalDto> animalsDto) {
+    public OrganDto(Long id, String name, String description, boolean isVital) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.isVital = isVital;
-        this.animals = animalsDto;
     }
+
 
     public Long getId() {
         return id;
@@ -50,11 +52,4 @@ public class OrganDto {
         isVital = vital;
     }
 
-    public List<AnimalDto> getAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(List<AnimalDto> animals) {
-        this.animals = animals;
-    }
 }

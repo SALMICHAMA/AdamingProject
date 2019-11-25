@@ -7,6 +7,7 @@ import com.adaming.animals.service.organs.OrganServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,7 +72,7 @@ public class AnimalServiceImpl implements AnimalsService {
 
     @Override
     public List<Animal> showAllAnimals() {
-        List<Animal> list = null;
+        List<Animal> list = new ArrayList<>();
         list = (List<Animal>) animalsRepository.findAll();
         return list;
     }

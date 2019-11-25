@@ -1,5 +1,7 @@
 package com.adaming.animals.dto;
 
+import com.adaming.animals.entity.Organ;
+
 import java.util.List;
 
 public class AnimalDto {

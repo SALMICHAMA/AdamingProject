@@ -1,11 +1,9 @@
 package com.adaming.animals.entity;
 
-import com.adaming.animals.dto.AnimalDto;
 import com.adaming.animals.dto.OrganDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -66,21 +64,8 @@ public class Organ implements Serializable {
         isVital = vital;
     }
 
-    public List<Animal> getAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(List<Animal> animals) {
-        this.animals = animals;
-    }
 
     public OrganDto toDto() {
-        List<AnimalDto> animalsDto = new ArrayList<>();
-        if(this.animals!=null){
-            for (Animal a : this.animals) {
-                animalsDto.add(a.toAnimalsDto());
-            }
-        }
-        return new OrganDto(this.id, this.name, this.description, this.isVital, animalsDto);
+        return new OrganDto(this.id, this.name, this.description, this.isVital);
     }
 }

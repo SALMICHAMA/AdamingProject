@@ -13,15 +13,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @org.springframework.web.bind.annotation.RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class RestController {
 
@@ -36,18 +36,28 @@ public class RestController {
      * @param idToShow is the id of the animal that you want to display
      * @return the animal's characteristics
      */
-    @GetMapping(path = "animals/{id}")
+    @GetMapping(path = "/animals/{id}")
     public Animal animals_id(@PathVariable(name = "id") long idToShow) {
         Animal animal = animalsService.findById(idToShow);
-        MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animal.getImageUrl());
+        //MultipartFile file = (MultipartFile) imageServiceImpl.loadAsResource(animal.getImageUrl());
         return animal;
     }
 
+
     @GetMapping("/animals")
-    public List<Animal> displayAllAnimals(Model model) {
-        List<Animal> list = animalsService.showAllAnimals();
-        model.addAttribute("animalList", list);
-        return list;
+    public List<CreateAnimalDto> displayAllAnimals() {
+        List<Animal> list=animalsService.showAllAnimals();
+        List<CreateAnimalDto> animalDtos = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            CreateAnimalDto animalDtoTemp=new CreateAnimalDto();
+            animalDtoTemp.setName(list.get(i).getName());
+            animalDtoTemp.setImageUrl(list.get(i).getImageUrl());
+            animalDtoTemp.setCategory(list.get(i).getCategory());
+            animalDtoTemp.setEnvironment(list.get(i).getEnvironment());
+            animalDtoTemp.setOrganList(list.get(i).getOrgans());
+            animalDtos.add(animalDtoTemp);
+        }
+        return animalDtos;
     }
 
     @PostMapping(path = "/animal/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -79,12 +89,19 @@ public class RestController {
         return organ;
     }
 
+//    @GetMapping("/organs")
+//    public List<Organ> displayAllOrgans(Model model) {
+//        List<Organ> organList = organsService.showAllOrgans();
+//        model.addAttribute("organList", organList);
+//        return organList;
+//
+//    }
+
     @GetMapping("/organs")
-    public List<Organ> displayAllOrgans(Model model) {
-        List<Organ> organList = organsService.showAllOrgans();
-        model.addAttribute("organList", organList);
-        return organList;
+    public List<Organ> displayAllOrgans() {
+        return organsService.showAllOrgans();
     }
+
 
     @PostMapping(path = "/organs/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Organ> deleteOrgan(@PathVariable(name = "name") String organName) {
