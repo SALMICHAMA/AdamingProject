@@ -1,11 +1,12 @@
 package com.adaming.animals.dto;
 
-import com.adaming.animals.entity.Organ;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class AnimalDto {
 
     private Long id;
@@ -14,7 +15,8 @@ public class AnimalDto {
     private String environment;
     private String imageUrl;
     private List<OrganDto> organsList;
-    private Resource file;
+    public ResponseEntity<Resource> responseEntity;
+
     public AnimalDto(Long id, String name, String category, String environment, String imageUrl, List<OrganDto> organDtos) {
         this.id = id;
         this.name = name;
@@ -72,11 +74,11 @@ public class AnimalDto {
         this.organsList = organsList;
     }
 
-    public Resource getFile() {
-        return file;
+    public ResponseEntity<Resource> getResponseEntity() {
+        return responseEntity;
     }
 
-    public void setFile(Resource file) {
-        this.file = file;
+    public void setResponseEntity(ResponseEntity<Resource> responseEntity) {
+        this.responseEntity = responseEntity;
     }
 }

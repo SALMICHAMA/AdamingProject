@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,6 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class RestController {
-
     @Autowired
     OrganServiceImpl organsService;
     @Autowired
@@ -36,12 +36,18 @@ public class RestController {
      * @param idToShow is the id of the animal that you want to display
      * @return the animal's characteristics
      */
-    @GetMapping(path = "/animals/{id}")
-    public AnimalDto animals_id(@PathVariable(name = "id") long idToShow) {
+
+    @RequestMapping(value = "/animals/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public AnimalDto animals_id(@PathVariable(name = "id") long idToShow) throws IOException {
         Animal animal = animalsService.findById(idToShow);
-        Resource file = imageServiceImpl.loadAsResource(animal.getImageUrl());
+        Resource resource=imageServiceImpl.loadAsResource(animal.getImageUrl());
         AnimalDto animalDto=animal.toAnimalsDto();
-        animalDto.setFile(file);
+        ResponseEntity<Resource> respEnt=ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+        animalDto.setResponseEntity(respEnt);
         return animalDto;
     }
 
@@ -65,7 +71,7 @@ public class RestController {
     @PostMapping(path = "/animal/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public AnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
         imageServiceImpl.storeAvatar(createAnimalDto.getFile());
-        createAnimalDto.setImageUrl("/uploads/" + createAnimalDto.getFile().getOriginalFilename());
+        createAnimalDto.setImageUrl(createAnimalDto.getFile().getOriginalFilename());
 
         Animal animal = animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
         return animal.toAnimalsDto();
