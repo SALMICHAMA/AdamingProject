@@ -91,6 +91,13 @@ public class AnimalServiceImpl implements AnimalsService {
      }
 
     @Override
+    public List<Animal> showAnimalsByEnvironment(String environment) {
+        List<Animal> list=new ArrayList<>();
+        list=(List<Animal>) animalsRepository.getAnimalsByEnvironment(environment);
+        return list;
+    }
+
+    @Override
     public Animal showSpecificAnimal(String name) {
         Animal animal = animalsRepository.getAnimalsByName(name);
         return animal;

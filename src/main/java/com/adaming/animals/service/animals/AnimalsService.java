@@ -15,6 +15,7 @@ public interface AnimalsService {
     void deleteAnimalByName(String name);
     List<Animal> showAllAnimals();
     List<Animal> showAnimalsByCategory(String category);
+    List<Animal> showAnimalsByEnvironment(String environment);
     Animal showSpecificAnimal(String name);
     Animal findById(Long id);
 
