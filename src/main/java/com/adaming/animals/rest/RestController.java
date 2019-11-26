@@ -112,7 +112,17 @@ public class RestController {
         Organ organ = organsService.showSpecificOrgan(name);
         return organ.toDto();
     }
-
+    @GetMapping("animals/{name}/organs")
+    public List<OrganDto> displayOrgansOfSpecificAnimal(@PathVariable(name = "name") String animalName) {
+        Animal animal=animalsService.showSpecificAnimal(animalName);
+        List<Organ> organs=animal.getOrgans();
+        List<OrganDto> organDtos=new ArrayList<>();
+        for(int i=0;i<organs.size();i++){
+            Organ organTemp=organs.get(i);
+            organDtos.add(organTemp.toDto());
+        }
+        return organDtos;
+    }
 
     @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organ addOrganSubmit(@RequestBody Organ organ) {
