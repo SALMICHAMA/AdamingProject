@@ -63,8 +63,10 @@ public class RestController {
 
     @PostMapping(path = "/animal/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public AnimalDto addAnimalSubmit(@ModelAttribute CreateAnimalDto createAnimalDto) {
-        imageServiceImpl.storeAvatar(createAnimalDto.getFile());
-        createAnimalDto.setImageUrl(createAnimalDto.getFile().getOriginalFilename());
+        if (createAnimalDto.getFile() != null) {
+            imageServiceImpl.storeAvatar(createAnimalDto.getFile());
+            createAnimalDto.setImageUrl(createAnimalDto.getFile().getOriginalFilename());
+        }
         animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
         Animal animal =animalsService.showSpecificAnimal(createAnimalDto.getName());
         return animal.toAnimalsDto();
