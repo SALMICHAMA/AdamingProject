@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class CreateAnimalDto {
+
     private String name;
     private String category;
     private String environment;

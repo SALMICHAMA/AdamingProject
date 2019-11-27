@@ -22,12 +22,14 @@ public class AnimalServiceImpl implements AnimalsService {
         Animal animal = new Animal(name, category, environment);
         animalsRepository.save(animal);
     }
+
     @Override
-    public void createAnimal(String name, String category, String environment,String imageUrl) {
-        imageUrl="http://localhost:8080/api/uploads/"+imageUrl;
-        Animal animal = new Animal(name, category, environment,imageUrl);
+    public void createAnimal(String name, String category, String environment, String imageUrl) {
+        imageUrl = "http://localhost:8080/api/uploads/" + imageUrl;
+        Animal animal = new Animal(name, category, environment, imageUrl);
         animalsRepository.save(animal);
     }
+
     @Override
     public void createAnimal(String name, String category, String environment, List<Organ> organList) {
         Animal animal = new Animal(name, category, environment, organList);
@@ -51,8 +53,8 @@ public class AnimalServiceImpl implements AnimalsService {
 
     @Override
     public void createAnimal(String name, String category, String environment, String imageUrl, List<Organ> organList) {
-        imageUrl="http://localhost:8080/api/uploads/"+imageUrl;
-        Animal animal = new Animal(name, category, environment,imageUrl , organList);
+        imageUrl = "http://localhost:8080/api/uploads/" + imageUrl;
+        Animal animal = new Animal(name, category, environment, imageUrl, organList);
         if (organList == null) {
             animalsRepository.save(animal);
         } else {
@@ -70,18 +72,6 @@ public class AnimalServiceImpl implements AnimalsService {
     }
 
     @Override
-    public void deleteAnimalByName(String name) {
-        Animal animal = animalsRepository.getAnimalsByName(name);
-        Long idToDelete = animal.getId();
-        animalsRepository.deleteAnimalsById(idToDelete);
-    }
-
-    @Override
-    public void deletaAnimalById(Long id) {
-        animalsRepository.deleteAnimalsById(id);
-    }
-
-    @Override
     public List<Animal> showAllAnimals() {
         List<Animal> list = new ArrayList<>();
         list = (List<Animal>) animalsRepository.findAll();
@@ -90,15 +80,15 @@ public class AnimalServiceImpl implements AnimalsService {
 
     @Override
     public List<Animal> showAnimalsByCategory(String category) {
-        List<Animal> list=new ArrayList<>();
-        list=(List<Animal>) animalsRepository.getAnimalsByCategory(category);
+        List<Animal> list = new ArrayList<>();
+        list = (List<Animal>) animalsRepository.getAnimalsByCategory(category);
         return list;
-     }
+    }
 
     @Override
     public List<Animal> showAnimalsByEnvironment(String environment) {
-        List<Animal> list=new ArrayList<>();
-        list=(List<Animal>) animalsRepository.getAnimalsByEnvironment(environment);
+        List<Animal> list = new ArrayList<>();
+        list = (List<Animal>) animalsRepository.getAnimalsByEnvironment(environment);
         return list;
     }
 
@@ -112,5 +102,10 @@ public class AnimalServiceImpl implements AnimalsService {
     public Animal findById(Long id) {
         Animal animal = animalsRepository.getAnimalsById(id);
         return animal;
+    }
+
+    @Override
+    public void deleteById(Long idToDelete) {
+        animalsRepository.deleteById(idToDelete);
     }
 }

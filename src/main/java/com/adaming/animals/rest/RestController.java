@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,25 +37,21 @@ public class RestController {
      * @return the animal's characteristics
      */
 
-    @GetMapping(path = "/animal/{id}")
+    @GetMapping(path = "/animals/{id}")
     public AnimalDto animals_id(@PathVariable(name = "id") Long idToShow) throws IOException {
         Animal animal = animalsService.findById(idToShow);
-        AnimalDto animalDto=animal.toAnimalsDto();;
+        AnimalDto animalDto = animal.toAnimalsDto();
+        ;
         return animalDto;
     }
 
 
     @GetMapping("/animals")
-    public List<CreateAnimalDto> displayAllAnimals() {
-        List<Animal> list=animalsService.showAllAnimals();
-        List<CreateAnimalDto> animalDtos = new ArrayList<>();
-        for(int i=0;i<list.size();i++){
-            CreateAnimalDto animalDtoTemp=new CreateAnimalDto();
-            animalDtoTemp.setName(list.get(i).getName());
-            animalDtoTemp.setImageUrl(list.get(i).getImageUrl());
-            animalDtoTemp.setCategory(list.get(i).getCategory());
-            animalDtoTemp.setEnvironment(list.get(i).getEnvironment());
-            animalDtoTemp.setOrganList(list.get(i).getOrgans());
+    public List<AnimalDto> displayAllAnimals() {
+        List<Animal> list = animalsService.showAllAnimals();
+        List<AnimalDto> animalDtos = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            AnimalDto animalDtoTemp = list.get(i).toAnimalsDto();
             animalDtos.add(animalDtoTemp);
         }
         return animalDtos;
@@ -68,17 +64,18 @@ public class RestController {
             createAnimalDto.setImageUrl(createAnimalDto.getFile().getOriginalFilename());
         }
         animalsService.createAnimal(createAnimalDto.getName(), createAnimalDto.getCategory(), createAnimalDto.getEnvironment(), createAnimalDto.getImageUrl(), createAnimalDto.getOrganList());
-        Animal animal =animalsService.showSpecificAnimal(createAnimalDto.getName());
+        Animal animal = animalsService.showSpecificAnimal(createAnimalDto.getName());
         return animal.toAnimalsDto();
     }
+
     @GetMapping("/animals/{filter}")
     public List<CreateAnimalDto> displayByFilter(@PathVariable(name = "filter") String filter) throws IOException {
-        List<Animal> listCategory=animalsService.showAnimalsByCategory(filter);
-        List<Animal> listEnvironment=animalsService.showAnimalsByEnvironment(filter);
-        List<CreateAnimalDto> animalDtos=new ArrayList<>();
-        if(listCategory!=null){
-            for(int i=0;i<listCategory.size();i++){
-                CreateAnimalDto animalDtoTemp=new CreateAnimalDto();
+        List<Animal> listCategory = animalsService.showAnimalsByCategory(filter);
+        List<Animal> listEnvironment = animalsService.showAnimalsByEnvironment(filter);
+        List<CreateAnimalDto> animalDtos = new ArrayList<>();
+        if (listCategory != null) {
+            for (int i = 0; i < listCategory.size(); i++) {
+                CreateAnimalDto animalDtoTemp = new CreateAnimalDto();
                 animalDtoTemp.setName(listCategory.get(i).getName());
                 animalDtoTemp.setImageUrl(listCategory.get(i).getImageUrl());
                 animalDtoTemp.setCategory(listCategory.get(i).getCategory());
@@ -88,9 +85,9 @@ public class RestController {
             }
 
         }
-        if(listEnvironment!=null){
-            for(int i=0;i<listEnvironment.size();i++){
-                CreateAnimalDto animalDtoTemp=new CreateAnimalDto();
+        if (listEnvironment != null) {
+            for (int i = 0; i < listEnvironment.size(); i++) {
+                CreateAnimalDto animalDtoTemp = new CreateAnimalDto();
                 animalDtoTemp.setName(listEnvironment.get(i).getName());
                 animalDtoTemp.setImageUrl(listEnvironment.get(i).getImageUrl());
                 animalDtoTemp.setCategory(listEnvironment.get(i).getCategory());
@@ -102,25 +99,26 @@ public class RestController {
         return animalDtos;
     }
 
-    @PostMapping(path = "animals/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "animals/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Animal> deleteAnimal(@PathVariable(name = "id") Long idToDelete) {
-        animalsService.deletaAnimalById(idToDelete);
+        animalsService.deleteById(idToDelete);
         List<Animal> animalList = animalsService.showAllAnimals();
         return animalList;
     }
 
     @GetMapping(path = "/organs/{id}")
-    public OrganDto nameOrgan(@PathVariable(name = "id") Long idToShow){
+    public OrganDto nameOrgan(@PathVariable(name = "id") Long idToShow) {
         Organ organ = organsService.showSpecificOrgan(idToShow);
         return organ.toDto();
     }
+
     @GetMapping("animals/{id}/organs")
     public List<OrganDto> displayOrgansOfSpecificAnimal(@PathVariable(name = "id") Long id) {
-        Animal animal=animalsService.findById(id);
-        List<Organ> organs=animal.getOrgans();
-        List<OrganDto> organDtos=new ArrayList<>();
-        for(int i=0;i<organs.size();i++){
-            Organ organTemp=organs.get(i);
+        Animal animal = animalsService.findById(id);
+        List<Organ> organs = animal.getOrgans();
+        List<OrganDto> organDtos = new ArrayList<>();
+        for (int i = 0; i < organs.size(); i++) {
+            Organ organTemp = organs.get(i);
             organDtos.add(organTemp.toDto());
         }
         return organDtos;
