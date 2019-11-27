@@ -90,7 +90,7 @@ public class Animal implements Serializable {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageName(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

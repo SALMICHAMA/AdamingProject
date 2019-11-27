@@ -21,10 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@org.springframework.web.bind.annotation.RestController
-//@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api")
-public class RestController {
+public class AnimalsController {
     @Autowired
     OrganServiceImpl organsService;
     @Autowired
@@ -37,7 +36,7 @@ public class RestController {
      * @return the animal's characteristics
      */
 
-    @GetMapping(path = "/animals/animal/{id}")
+    @GetMapping(path = "/animals/{id}")
     public AnimalDto animals_id(@PathVariable(name = "id") Long idToShow) throws IOException {
         Animal animal = animalsService.findById(idToShow);
         AnimalDto animalDto = animal.toAnimalsDto();
@@ -67,8 +66,8 @@ public class RestController {
         return animal.toAnimalsDto();
     }
 
-    @GetMapping("/animals/{filter}")
-    public List<CreateAnimalDto> displayByFilter(@PathVariable(name = "filter") String filter) throws IOException {
+    @GetMapping("/animals/filter/{valueFilter}")
+    public List<CreateAnimalDto> displayByFilter(@PathVariable(name = "valueFilter") String filter) throws IOException {
         List<Animal> listCategory = animalsService.showAnimalsByCategory(filter);
         List<Animal> listEnvironment = animalsService.showAnimalsByEnvironment(filter);
         List<CreateAnimalDto> animalDtos = new ArrayList<>();
@@ -105,12 +104,6 @@ public class RestController {
         return animalList;
     }
 
-    @GetMapping(path = "/organs/{id}")
-    public OrganDto nameOrgan(@PathVariable(name = "id") Long idToShow) {
-        Organ organ = organsService.showSpecificOrgan(idToShow);
-        return organ.toDto();
-    }
-
     @GetMapping("animals/{id}/organs")
     public List<OrganDto> displayOrgansOfSpecificAnimal(@PathVariable(name = "id") Long id) {
         Animal animal = animalsService.findById(id);
@@ -121,33 +114,6 @@ public class RestController {
             organDtos.add(organTemp.toDto());
         }
         return organDtos;
-    }
-
-    @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Organ addOrganSubmit(@RequestBody Organ organ) {
-        organsService.addOrgan(organ.getName(), organ.getDescription(), organ.isVital());
-        return organ;
-    }
-
-//    @GetMapping("/organs")
-//    public List<Organ> displayAllOrgans(Model model) {
-//        List<Organ> organList = organsService.showAllOrgans();
-//        model.addAttribute("organList", organList);
-//        return organList;
-//
-//    }
-
-    @GetMapping("/organs")
-    public List<Organ> displayAllOrgans() {
-        return organsService.showAllOrgans();
-    }
-
-
-    @PostMapping(path = "/organs/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Organ> deleteOrgan(@PathVariable(name = "id") Long idToDelete) {
-        organsService.deleteOrgan(idToDelete);
-        List<Organ> organList = organsService.showAllOrgans();
-        return organList;
     }
 
 
