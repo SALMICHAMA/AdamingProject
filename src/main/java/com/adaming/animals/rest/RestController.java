@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @org.springframework.web.bind.annotation.RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class RestController {
     @Autowired
@@ -37,11 +37,10 @@ public class RestController {
      * @return the animal's characteristics
      */
 
-    @GetMapping(path = "/animals/{id}")
+    @GetMapping(path = "/animals/animal/{id}")
     public AnimalDto animals_id(@PathVariable(name = "id") Long idToShow) throws IOException {
         Animal animal = animalsService.findById(idToShow);
         AnimalDto animalDto = animal.toAnimalsDto();
-        ;
         return animalDto;
     }
 
