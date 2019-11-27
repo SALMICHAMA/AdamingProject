@@ -18,5 +18,6 @@ public interface AnimalsService {
     List<Animal> showAnimalsByEnvironment(String environment);
     Animal showSpecificAnimal(String name);
     Animal findById(Long id);
+    void deletaAnimalById(Long id);
 
 }

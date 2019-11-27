@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface OrgansRepository extends CrudRepository<Organ,Long> {
 
     Organ getOrganByName(String organName);
+    Organ getOrganById(Long id);
 }

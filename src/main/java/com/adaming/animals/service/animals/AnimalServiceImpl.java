@@ -77,6 +77,11 @@ public class AnimalServiceImpl implements AnimalsService {
     }
 
     @Override
+    public void deletaAnimalById(Long id) {
+        animalsRepository.deleteAnimalsById(id);
+    }
+
+    @Override
     public List<Animal> showAllAnimals() {
         List<Animal> list = new ArrayList<>();
         list = (List<Animal>) animalsRepository.findAll();

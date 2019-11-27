@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface OrgansService {
 
-    public void saveOrgan(Organ organ);
-    public void addOrgan(String organName, String organDescription, boolean isVital);
-
-    public Organ deleteOrgan(String name);
-    public List<Organ> showAllOrgans();
-    public Organ showSpecificOrgan(String organName);
+    void saveOrgan(Organ organ);
+    void addOrgan(String organName, String organDescription, boolean isVital);
+    void deleteOrgan(Long id);
+    void deleteOrgan(String name);
+    List<Organ> showAllOrgans();
+    Organ showSpecificOrgan(String organName);
+    Organ showSpecificOrgan(Long id);
 }

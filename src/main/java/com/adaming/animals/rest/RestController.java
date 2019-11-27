@@ -102,21 +102,21 @@ public class RestController {
         return animalDtos;
     }
 
-    @PostMapping(path = "animals/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Animal> deleteAnimal(@PathVariable(name = "name") String animalName) {
-        animalsService.deleteAnimalByName(animalName);
+    @PostMapping(path = "animals/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Animal> deleteAnimal(@PathVariable(name = "id") Long idToDelete) {
+        animalsService.deletaAnimalById(idToDelete);
         List<Animal> animalList = animalsService.showAllAnimals();
         return animalList;
     }
 
-    @GetMapping("/organs/{name}")
-    public OrganDto nameOrgan(@PathVariable(name = "name") String name) {
-        Organ organ = organsService.showSpecificOrgan(name);
+    @GetMapping(path = "/organs/{id}")
+    public OrganDto nameOrgan(@PathVariable(name = "id") Long idToShow){
+        Organ organ = organsService.showSpecificOrgan(idToShow);
         return organ.toDto();
     }
-    @GetMapping("animals/{name}/organs")
-    public List<OrganDto> displayOrgansOfSpecificAnimal(@PathVariable(name = "name") String animalName) {
-        Animal animal=animalsService.showSpecificAnimal(animalName);
+    @GetMapping("animals/{id}/organs")
+    public List<OrganDto> displayOrgansOfSpecificAnimal(@PathVariable(name = "id") Long id) {
+        Animal animal=animalsService.findById(id);
         List<Organ> organs=animal.getOrgans();
         List<OrganDto> organDtos=new ArrayList<>();
         for(int i=0;i<organs.size();i++){
@@ -146,9 +146,9 @@ public class RestController {
     }
 
 
-    @PostMapping(path = "/organs/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Organ> deleteOrgan(@PathVariable(name = "name") String organName) {
-        Organ organ = organsService.deleteOrgan(organName);
+    @PostMapping(path = "/organs/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Organ> deleteOrgan(@PathVariable(name = "id") Long idToDelete) {
+        organsService.deleteOrgan(idToDelete);
         List<Organ> organList = organsService.showAllOrgans();
         return organList;
     }

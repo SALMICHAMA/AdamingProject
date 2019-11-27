@@ -27,11 +27,14 @@ public class OrganServiceImpl implements OrgansService{
 
 
     @Override
-    public Organ deleteOrgan(String name) {
+    public void deleteOrgan(String name) {
         Organ organ =organsRepository.getOrganByName(name);
         organsRepository.delete(organ);
+    }
 
-        return organ;
+    @Override
+    public void deleteOrgan(Long id) {
+        organsRepository.deleteById(id);
     }
 
     @Override
@@ -45,5 +48,8 @@ public class OrganServiceImpl implements OrgansService{
         return organsRepository.getOrganByName(organName);
     }
 
-
+    @Override
+    public Organ showSpecificOrgan(Long id) {
+        return organsRepository.getOrganById(id);
     }
+}
