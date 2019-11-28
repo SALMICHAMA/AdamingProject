@@ -1,5 +1,6 @@
 package com.adaming.animals.service.organs;
 
+import com.adaming.animals.entity.Animal;
 import com.adaming.animals.entity.Organ;
 import com.adaming.animals.repository.OrgansRepository;
 import org.springframework.beans.factory.annotation.Autowired;

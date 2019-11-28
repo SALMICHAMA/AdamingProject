@@ -35,7 +35,12 @@ public class Organ implements Serializable {
         this.description = description;
         this.isVital = isVital;
     }
-
+    public Organ(String name, String description, boolean isVital, List<Animal> animalList) {
+        this.name = name;
+        this.description = description;
+        this.isVital = isVital;
+        this.animals=animalList;
+    }
     public Long getId() {
         return id;
     }
@@ -64,7 +69,13 @@ public class Organ implements Serializable {
         isVital = vital;
     }
 
+    public List<Animal> getAnimals() {
+        return animals;
+    }
 
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
     public OrganDto toDto() {
         return new OrganDto(this.id, this.name, this.description, this.isVital);
     }
