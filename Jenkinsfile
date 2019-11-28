@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'hello word'
-        sh 'sh mvn clean'
+        sh 'mvn clean'
       }
     }
 
