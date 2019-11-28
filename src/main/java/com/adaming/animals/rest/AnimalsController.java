@@ -70,6 +70,8 @@ public class AnimalsController {
     public List<CreateAnimalDto> displayByFilter(@PathVariable(name = "valueFilter") String filter) throws IOException {
         List<Animal> listCategory = animalsService.showAnimalsByCategory(filter);
         List<Animal> listEnvironment = animalsService.showAnimalsByEnvironment(filter);
+        Animal animal=animalsService.showSpecificAnimal(filter);
+        CreateAnimalDto createAnimalDto=new CreateAnimalDto();
         List<CreateAnimalDto> animalDtos = new ArrayList<>();
         if (listCategory != null) {
             for (int i = 0; i < listCategory.size(); i++) {
@@ -93,6 +95,15 @@ public class AnimalsController {
                 animalDtoTemp.setOrganList(listEnvironment.get(i).getOrgans());
                 animalDtos.add(animalDtoTemp);
             }
+        }
+        if (animal != null) {
+                CreateAnimalDto animalDtoTemp = new CreateAnimalDto();
+                animalDtoTemp.setName(animal.getName());
+                animalDtoTemp.setImageUrl(animal.getImageUrl());
+                animalDtoTemp.setCategory(animal.getCategory());
+                animalDtoTemp.setEnvironment(animal.getEnvironment());
+                animalDtoTemp.setOrganList(animal.getOrgans());
+                animalDtos.add(animalDtoTemp);
         }
         return animalDtos;
     }

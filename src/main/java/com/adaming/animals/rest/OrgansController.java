@@ -24,7 +24,16 @@ public class OrgansController {
         Organ organ = organsService.showSpecificOrgan(idToShow);
         return organ.toDto();
     }
-
+    @GetMapping("/organs/filter/{valueFilter}")
+    public List<OrganDto> displayByFilter(@PathVariable(name = "valueFilter") String filter){
+        Organ organ = organsService.showSpecificOrgan(filter);
+        List<OrganDto> organDtos = new ArrayList<>();
+        if (organ != null) {
+                OrganDto organDto = new OrganDto(organ.getId(),organ.getName(),organ.getDescription(),organ.isVital());
+            organDtos.add(organDto);
+        }
+        return organDtos;
+    }
     @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organ addOrganSubmit(@RequestBody Organ organ) {
         organsService.addOrgan(organ.getName(), organ.getDescription(), organ.isVital());
