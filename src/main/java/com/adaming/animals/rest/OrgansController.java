@@ -18,7 +18,6 @@ public class OrgansController {
     @Autowired
     OrganServiceImpl organsService;
 
-
     @GetMapping(path = "/organs/{id}")
     public OrganDto nameOrgan(@PathVariable(name = "id") Long idToShow) {
         Organ organ = organsService.showSpecificOrgan(idToShow);
