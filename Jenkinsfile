@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'hello word'
-        sh 'mvn clean'
+        sh '''-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.LAUNCH_DIAGNOSTICS=true
+'''
       }
     }
 
