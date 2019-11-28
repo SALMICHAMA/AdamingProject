@@ -4,7 +4,6 @@ pipeline {
     stage('Build') {
       steps {
         echo 'hello word'
-        sh 'mvn test'
       }
     }
 
