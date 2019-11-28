@@ -48,6 +48,11 @@ public class AnimalsApplication implements CommandLineRunner {
         organ3.setDescription("give stability ans mobility to fishes");
         organ3.setVital(false);
 
+        Organ organ4 = new Organ();
+        organ4.setName("wings");
+        organ4.setDescription("help birds to fly");
+        organ4.setVital(false);
+
         list.add(organ);
         list.add(organ2);
 
@@ -57,6 +62,7 @@ public class AnimalsApplication implements CommandLineRunner {
         organsService.saveOrgan(organ);
         organsService.saveOrgan(organ2);
         organsService.saveOrgan(organ3);
+        organsService.saveOrgan(organ4);
 
         Animal animal = new Animal("dog", "mammal", "terrestre");
         animalsService.createAnimal(animal.getName(), animal.getCategory(), animal.getEnvironment());

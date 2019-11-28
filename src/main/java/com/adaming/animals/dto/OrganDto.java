@@ -10,7 +10,7 @@ public class OrganDto {
     private String name;
     private String description;
     private boolean isVital;
-//    private List<AnimalDto> animals;
+    //private List<Animal> animals;
 
     public OrganDto(Long id, String name, String description, boolean isVital) {
         this.id = id;
@@ -18,7 +18,6 @@ public class OrganDto {
         this.description = description;
         this.isVital = isVital;
     }
-
 
     public Long getId() {
         return id;
