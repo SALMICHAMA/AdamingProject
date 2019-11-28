@@ -86,7 +86,7 @@ public class AnimalsApplication implements CommandLineRunner {
 
         Animal animal5 = new Animal("toad", "amphibian", "swamp");
         animal5.setImageName("toad.jpg");
-        animalsService.createAnimal(animal4.getName(), animal4.getCategory(), animal4.getEnvironment(), animal4.getImageUrl(), animal4.getOrgans());
+        animalsService.createAnimal(animal5.getName(), animal5.getCategory(), animal5.getEnvironment(), animal5.getImageUrl(), animal5.getOrgans());
 
     }
 
