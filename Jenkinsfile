@@ -11,7 +11,6 @@ pipeline {
       steps {
         sh '''mvn test
 '''
-        sh 'echo Test finished'
       }
     }
 
