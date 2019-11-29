@@ -6,6 +6,7 @@ pipeline {
         echo 'hello word'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         sh '''-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.LAUNCH_DIAGNOSTICS=true
 
 '''
@@ -15,6 +16,9 @@ pipeline {
 =======
         sh 'call mvn clean'
 >>>>>>> faa311f21826fc6e98f4a3ea1e9eb0f25b3a7987
+=======
+        sh 'mvn test'
+>>>>>>> 528799fc8a7778a050caad997678afdd7410f91c
       }
     }
 
