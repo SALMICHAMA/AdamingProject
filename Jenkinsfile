@@ -2,8 +2,21 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      steps {
-        sh 'echo Test starting....'
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'echo Test starting....'
+          }
+        }
+
+        stage('SonarTest') {
+          steps {
+            sh '''mvn clean install -Dlicense.skip=true
+'''
+            sh 'mvn sonar:sonar'
+          }
+        }
+
       }
     }
 
