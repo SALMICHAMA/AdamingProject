@@ -11,9 +11,7 @@ pipeline {
 
         stage('SonarTest') {
           steps {
-            sh '''mvn clean
-'''
-            sh 'mvn sonar:sonar'
+            sh 'mvn clean verify sonar:sonar'
           }
         }
 
