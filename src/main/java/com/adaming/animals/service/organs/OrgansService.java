@@ -13,4 +13,5 @@ public interface OrgansService {
     List<Organ> showAllOrgans();
     Organ showSpecificOrgan(String organName);
     Organ showSpecificOrgan(Long id);
+    void updateDescription(Long id, String newDescription);
 }

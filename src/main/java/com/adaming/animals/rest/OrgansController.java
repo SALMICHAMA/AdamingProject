@@ -40,7 +40,6 @@ public class OrgansController {
         return organ.toDto();
     }
 
-
     @GetMapping("/organs")
     public List<OrganDto> displayAllOrgans() {
         List<Organ> list=organsService.showAllOrgans();
@@ -52,11 +51,18 @@ public class OrgansController {
         return organDtos;
     }
 
-
     @DeleteMapping(path = "/organs/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<OrganDto> deleteOrgan(@PathVariable(name = "id") Long idToDelete) {
         organsService.deleteOrgan(idToDelete);
         return displayAllOrgans();
+    }
+
+    @PatchMapping(path = "/organs/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public OrganDto updateOrgan(@PathVariable(name = "id") Long idToUpdate, @RequestBody String descriptionToUpdate){
+        organsService.updateDescription(idToUpdate,descriptionToUpdate);
+        Organ organToUpdate=organsService.showSpecificOrgan(idToUpdate);
+        OrganDto organDto=organToUpdate.toDto();
+        return organDto;
     }
 
 }
