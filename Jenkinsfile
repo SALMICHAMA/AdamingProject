@@ -9,7 +9,9 @@ pipeline {
 
     stage('Test_MVN') {
       steps {
-        sh 'mvn clean'
+        sh '''mvn test
+'''
+        sh 'echo Test finished'
       }
     }
 
