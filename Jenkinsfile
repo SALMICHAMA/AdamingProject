@@ -5,7 +5,6 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'triggers { cron(\'H 8-16/2 * * 1-5\') }'
             sh 'echo Test starting....'
           }
         }
