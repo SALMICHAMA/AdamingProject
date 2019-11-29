@@ -17,7 +17,6 @@ pipeline {
     stage('Test Git') {
       steps {
         git(url: 'https://github.com/SALMICHAMA/AdamingProject.git', branch: 'develop')
-        git(url: 'http://e09c8fb8.ngrok.io/github-webhook/', branch: 'develop')
       }
     }
 
