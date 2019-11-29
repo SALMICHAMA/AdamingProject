@@ -4,7 +4,12 @@ pipeline {
     stage('Build') {
       steps {
         echo 'hello word'
-        sh '\'echo "hi"\''
+      }
+    }
+
+    stage('Test_MVN') {
+      steps {
+        sh 'mvn clean'
       }
     }
 
