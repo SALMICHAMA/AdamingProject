@@ -34,9 +34,10 @@ public class OrgansController {
         return organDtos;
     }
     @PostMapping(path = "/organs/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Organ addOrganSubmit(@RequestBody Organ organ) {
-        organsService.addOrgan(organ.getName(), organ.getDescription(), organ.isVital());
-        return organ;
+    public OrganDto addOrganSubmit(@RequestBody OrganDto organdto) {
+        organsService.addOrgan(organdto.getName(), organdto.getDescription(), organdto.isVital());
+        Organ organ=organsService.showSpecificOrgan(organdto.getName());
+        return organ.toDto();
     }
 
 
