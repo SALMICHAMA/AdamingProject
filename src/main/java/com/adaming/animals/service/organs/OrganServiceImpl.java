@@ -31,6 +31,7 @@ public class OrganServiceImpl implements OrgansService{
     public void deleteOrgan(String name) {
         Organ organ =organsRepository.getOrganByName(name);
         organsRepository.delete(organ);
+
     }
 
     @Override
@@ -52,5 +53,12 @@ public class OrganServiceImpl implements OrgansService{
     @Override
     public Organ showSpecificOrgan(Long id) {
         return organsRepository.getOrganById(id);
+    }
+
+    @Override
+    public void updateDescription(Long id, String newDescription) {
+        Organ organToUpdate=organsRepository.getOrganById(id);
+        organToUpdate.setDescription(newDescription);
+        organsRepository.save(organToUpdate);
     }
 }

@@ -35,6 +35,12 @@ public class Organ implements Serializable {
         this.description = description;
         this.isVital = isVital;
     }
+    public Organ(Long id, String name, String description, boolean isVital) {
+        this.id=id;
+        this.name = name;
+        this.description = description;
+        this.isVital = isVital;
+    }
     public Organ(String name, String description, boolean isVital, List<Animal> animalList) {
         this.name = name;
         this.description = description;
