@@ -13,7 +13,7 @@ pipeline {
           steps {
             sh '''mvn clean install -Dlicense.skip=true
 '''
-            sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:8080 -Dlicense.skip=true'
+            sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dlicense.skip=true'
           }
         }
 
