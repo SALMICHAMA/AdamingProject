@@ -7,7 +7,8 @@ pipeline {
 
         sh '''-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.LAUNCH_DIAGNOSTICS=true
 
-'''
+'''}
+}
 
 
 
@@ -15,6 +16,7 @@ pipeline {
       steps {
         sh 'mvn clean'
 
+}
 }
 }
 }
