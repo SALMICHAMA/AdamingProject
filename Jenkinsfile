@@ -32,5 +32,12 @@ pipeline {
       }
     }
 
+    stage('End_Test') {
+      steps {
+        sh 'mvn clean'
+        echo 'Test finished...'
+      }
+    }
+
   }
 }
