@@ -1,5 +1,6 @@
 package com.adaming.animals.service.animals;
 
+import com.adaming.animals.dto.OrganDto;
 import com.adaming.animals.entity.Animal;
 import com.adaming.animals.entity.Organ;
 import com.adaming.animals.repository.AnimalsRepository;
@@ -107,5 +108,16 @@ public class AnimalServiceImpl implements AnimalsService {
     @Override
     public void deleteById(Long idToDelete) {
         animalsRepository.deleteById(idToDelete);
+    }
+
+    @Override
+    public void updateOrgans(Long id, Organ organ) {
+        Organ isExistOrgan=organsService.showSpecificOrgan(organ.getName());
+        if(isExistOrgan==null){
+            organsService.addOrgan(organ.getName(),organ.getDescription(),organ.isVital());
+        }
+        Animal animalToUpdate=animalsRepository.getAnimalsById(id);
+        animalToUpdate.getOrgans().add(organ);
+        animalsRepository.save(animalToUpdate);
     }
 }

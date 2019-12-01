@@ -126,6 +126,14 @@ public class AnimalsController {
         }
         return organDtos;
     }
+    @PatchMapping(path = "animals/{id}/moreorgan", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public AnimalDto updateAnimalOrgan(@PathVariable(name = "id") Long idToUpdate, @RequestBody OrganDto organ){
+        Organ organToUpdate=new Organ(organ.getName(),organ.getDescription(),organ.isVital());
+        animalsService.updateOrgans(idToUpdate,organToUpdate);
+        Animal animal=animalsService.findById(idToUpdate);
+        AnimalDto animalDto=animal.toAnimalsDto();
+        return animalDto;
+    }
 
 
     @PostMapping("/uploads")

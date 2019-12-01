@@ -18,7 +18,11 @@ public class OrganDto {
         this.description = description;
         this.isVital = isVital;
     }
-
+    public OrganDto(String name, String description, boolean isVital) {
+        this.name = name;
+        this.description = description;
+        this.isVital = isVital;
+    }
     public Long getId() {
         return id;
     }

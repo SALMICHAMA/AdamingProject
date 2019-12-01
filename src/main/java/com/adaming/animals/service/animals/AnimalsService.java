@@ -27,4 +27,6 @@ public interface AnimalsService {
     Animal findById(Long id);
 
     void deleteById(Long idToDelete);
+
+    void updateOrgans(Long id, Organ organ);
 }
