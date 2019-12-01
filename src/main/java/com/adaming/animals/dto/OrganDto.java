@@ -11,6 +11,7 @@ public class OrganDto {
     private String description;
     private boolean isVital;
     //private List<Animal> animals;
+    public OrganDto(){}
 
     public OrganDto(Long id, String name, String description, boolean isVital) {
         this.id = id;
