@@ -36,6 +36,7 @@ pipeline {
       steps {
         sh 'mvn clean'
         echo 'Test finished...'
+        slackSend(channel: '#encyclopedia-collaborative', message: 'Build Sucess')
       }
     }
 
