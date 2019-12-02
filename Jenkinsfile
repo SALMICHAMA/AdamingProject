@@ -36,7 +36,6 @@ pipeline {
       steps {
         sh 'mvn clean'
         echo 'Test finished...'
-        slackSend(baseUrl: 'webanimals.slack.com', channel: '#encyclopedia-collaborative', notifyCommitters: true, replyBroadcast: true, sendAsText: true, teamDomain: 'Webanimals', token: 'rkLR1YjUsJzvaGOIFd0ttHm3')
       }
     }
 
